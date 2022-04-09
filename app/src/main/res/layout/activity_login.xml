@@ -4,8 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_bg"
-    tools:context=".MainActivity">
+    android:background="#92D8D8"
+    android:fitsSystemWindows="true">
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/background" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -22,9 +33,10 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColorHint="#C8C5C5"
+            android:textColorHint="#83898C"
             app:boxBackgroundMode="none"
             app:boxStrokeColor="@null"
             app:expandedHintEnabled="false"
@@ -38,28 +50,29 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/round"
-                android:backgroundTint="#78B194"
+                android:backgroundTint="#fafafa"
                 android:drawableStart="@drawable/ic_baseline_person_24"
                 android:drawablePadding="10dp"
                 android:hint="Username"
                 android:inputType="text"
                 android:paddingLeft="16dp"
                 android:paddingTop="16dp"
-                android:textColor="@color/white"
+                android:textColor="#83898C"
                 android:textColorHighlight="@color/white"
-                android:textColorHint="#FFFFFF" />
+                android:textColorHint="#83898C" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:textColorHint="#C8C5C5"
+            android:textColorHint="#83898C"
             app:boxBackgroundMode="none"
             app:hintEnabled="false"
-            app:hintTextColor="@color/white"
+            app:hintTextColor="#83898C"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/white">
+            app:passwordToggleTint="#C8C5C5">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_password"
@@ -67,16 +80,16 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/round"
-                android:backgroundTint="#78B194"
+                android:backgroundTint="#fafafa"
                 android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="10dp"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:paddingLeft="16dp"
                 android:paddingTop="16dp"
-                android:textColor="@color/white"
-                android:textColorHighlight="@color/white"
-                android:textColorHint="#FFFFFF" />
+                android:textColor="#83898C"
+                android:textColorHighlight="#83898C"
+                android:textColorHint="#83898C" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -91,7 +104,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/round"
-        android:backgroundTint="#50514F"
+        android:backgroundTint="#307a59"
         android:text="Login"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -103,22 +116,20 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/roboto_black"
         android:text="Powered By"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_id_Login" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
@@ -157,12 +168,13 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/anton"
-        android:text="Pusat Layanan UMKM Terpadu"
-        android:textColor="#50514F"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto_black"
+        android:text="SALES INVENTORY \nMANAGEMENT GALLERY PLUT"
+        android:textColor="#1D4935"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
