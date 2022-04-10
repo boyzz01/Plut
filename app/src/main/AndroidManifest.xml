@@ -1,27 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ardeveloper.plut">
 
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 
     <application
         android:name=".MainApp"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/main">
         <activity
+            android:name=".view.AllTransaksi"
+            android:exported="false" />
+        <activity
+            android:name=".view.Laporan"
+            android:exported="false" />
+        <activity
+            android:name=".view.Akun"
+            android:exported="false" />
+        <activity
+            android:name=".view.AllProduk"
+            android:exported="false" />
+        <activity
+            android:name=".view.ProductDetail"
+            android:exported="false" />
+        <activity
+            android:name=".view.ProdukUmkm"
+            android:exported="false" />
+        <activity
             android:name=".view.Transaksi"
             android:exported="false" />
+        <activity
+            android:name=".view.ScannerActivity"
+            android:exported="false"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
         <activity
             android:name=".view.ReturBarang"
             android:exported="false" />
@@ -65,6 +94,14 @@
         <activity
             android:name=".view.MainActivity"
             android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" />
+        </provider>
 
         <meta-data
             android:name="preloaded_fonts"

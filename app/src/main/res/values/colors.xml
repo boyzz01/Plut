@@ -10,9 +10,12 @@
 
     <color name="primary">#307a59</color>
     <color name="ketiga">#FEC506</color>
-    <color name="kedua">#7AD305</color>
+    <color name="kedua">#008ece</color>
 
-    <color name="colorPrimary">#FCFCFC</color>
+
+    <color name="secondaryText">#7B8696</color>
+
+    <color name="colorPrimary">#307a59</color>
     <color name="colorPrimaryDark">#2A2E43</color>
     <color name="colorAccent">#FF402D</color>
     <color name="bottomNavigationTextColor">#B2B2B2</color>
@@ -53,4 +56,8 @@
     <color name="primaryText">#333C3A</color>
     <color name="divider_light">#F3F3F3</color>
     <color name="vermillion">#dc1818</color>
+    <color name="colorPrimaryLight30">#4D2196F3</color>
+    <color name="bg_gray">#EEEEEE</color>
+
+    <color name="colorAccentDarkHard">#14568A</color>
 </resources>

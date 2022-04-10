@@ -22,17 +22,18 @@ public class ProductDao extends AbstractDao<Product, Void> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property KodeUmkm = new Property(0, String.class, "kodeUmkm", false, "KODE_UMKM");
-        public final static Property Nama = new Property(1, String.class, "nama", false, "NAMA");
-        public final static Property Harga = new Property(2, int.class, "harga", false, "HARGA");
-        public final static Property Foto = new Property(3, String.class, "foto", false, "FOTO");
-        public final static Property UpdatedAt = new Property(4, String.class, "updatedAt", false, "UPDATED_AT");
-        public final static Property KodeKota = new Property(5, String.class, "kodeKota", false, "KODE_KOTA");
-        public final static Property CreatedAt = new Property(6, String.class, "createdAt", false, "CREATED_AT");
-        public final static Property Id = new Property(7, int.class, "id", false, "ID");
-        public final static Property KodeKategori = new Property(8, String.class, "kodeKategori", false, "KODE_KATEGORI");
-        public final static Property Stock = new Property(9, int.class, "stock", false, "STOCK");
-        public final static Property KodeProduk = new Property(10, String.class, "kodeProduk", false, "KODE_PRODUK");
+        public final static Property Id = new Property(0, int.class, "id", false, "ID");
+        public final static Property KodeKota = new Property(1, String.class, "kodeKota", false, "KODE_KOTA");
+        public final static Property KodeUmkm = new Property(2, String.class, "kodeUmkm", false, "KODE_UMKM");
+        public final static Property KodeKategori = new Property(3, String.class, "kodeKategori", false, "KODE_KATEGORI");
+        public final static Property KodeProduk = new Property(4, String.class, "kodeProduk", false, "KODE_PRODUK");
+        public final static Property Nama = new Property(5, String.class, "nama", false, "NAMA");
+        public final static Property Harga = new Property(6, int.class, "harga", false, "HARGA");
+        public final static Property Stock = new Property(7, int.class, "stock", false, "STOCK");
+        public final static Property NamaUmkm = new Property(8, String.class, "namaUmkm", false, "NAMA_UMKM");
+        public final static Property Foto = new Property(9, String.class, "foto", false, "FOTO");
+        public final static Property UpdatedAt = new Property(10, String.class, "updatedAt", false, "UPDATED_AT");
+        public final static Property CreatedAt = new Property(11, String.class, "createdAt", false, "CREATED_AT");
     }
 
 
@@ -48,17 +49,18 @@ public class ProductDao extends AbstractDao<Product, Void> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"Product\" (" + //
-                "\"KODE_UMKM\" TEXT," + // 0: kodeUmkm
-                "\"NAMA\" TEXT," + // 1: nama
-                "\"HARGA\" INTEGER NOT NULL ," + // 2: harga
-                "\"FOTO\" TEXT," + // 3: foto
-                "\"UPDATED_AT\" TEXT," + // 4: updatedAt
-                "\"KODE_KOTA\" TEXT," + // 5: kodeKota
-                "\"CREATED_AT\" TEXT," + // 6: createdAt
-                "\"ID\" INTEGER NOT NULL ," + // 7: id
-                "\"KODE_KATEGORI\" TEXT," + // 8: kodeKategori
-                "\"STOCK\" INTEGER NOT NULL ," + // 9: stock
-                "\"KODE_PRODUK\" TEXT);"); // 10: kodeProduk
+                "\"ID\" INTEGER NOT NULL ," + // 0: id
+                "\"KODE_KOTA\" TEXT," + // 1: kodeKota
+                "\"KODE_UMKM\" TEXT," + // 2: kodeUmkm
+                "\"KODE_KATEGORI\" TEXT," + // 3: kodeKategori
+                "\"KODE_PRODUK\" TEXT," + // 4: kodeProduk
+                "\"NAMA\" TEXT," + // 5: nama
+                "\"HARGA\" INTEGER NOT NULL ," + // 6: harga
+                "\"STOCK\" INTEGER NOT NULL ," + // 7: stock
+                "\"NAMA_UMKM\" TEXT," + // 8: namaUmkm
+                "\"FOTO\" TEXT," + // 9: foto
+                "\"UPDATED_AT\" TEXT," + // 10: updatedAt
+                "\"CREATED_AT\" TEXT);"); // 11: createdAt
     }
 
     /** Drops the underlying database table. */
@@ -70,96 +72,106 @@ public class ProductDao extends AbstractDao<Product, Void> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, Product entity) {
         stmt.clearBindings();
+        stmt.bindLong(1, entity.getId());
+ 
+        String kodeKota = entity.getKodeKota();
+        if (kodeKota != null) {
+            stmt.bindString(2, kodeKota);
+        }
  
         String kodeUmkm = entity.getKodeUmkm();
         if (kodeUmkm != null) {
-            stmt.bindString(1, kodeUmkm);
+            stmt.bindString(3, kodeUmkm);
+        }
+ 
+        String kodeKategori = entity.getKodeKategori();
+        if (kodeKategori != null) {
+            stmt.bindString(4, kodeKategori);
+        }
+ 
+        String kodeProduk = entity.getKodeProduk();
+        if (kodeProduk != null) {
+            stmt.bindString(5, kodeProduk);
         }
  
         String nama = entity.getNama();
         if (nama != null) {
-            stmt.bindString(2, nama);
+            stmt.bindString(6, nama);
         }
-        stmt.bindLong(3, entity.getHarga());
+        stmt.bindLong(7, entity.getHarga());
+        stmt.bindLong(8, entity.getStock());
+ 
+        String namaUmkm = entity.getNamaUmkm();
+        if (namaUmkm != null) {
+            stmt.bindString(9, namaUmkm);
+        }
  
         String foto = entity.getFoto();
         if (foto != null) {
-            stmt.bindString(4, foto);
+            stmt.bindString(10, foto);
         }
  
         String updatedAt = entity.getUpdatedAt();
         if (updatedAt != null) {
-            stmt.bindString(5, updatedAt);
-        }
- 
-        String kodeKota = entity.getKodeKota();
-        if (kodeKota != null) {
-            stmt.bindString(6, kodeKota);
+            stmt.bindString(11, updatedAt);
         }
  
         String createdAt = entity.getCreatedAt();
         if (createdAt != null) {
-            stmt.bindString(7, createdAt);
-        }
-        stmt.bindLong(8, entity.getId());
- 
-        String kodeKategori = entity.getKodeKategori();
-        if (kodeKategori != null) {
-            stmt.bindString(9, kodeKategori);
-        }
-        stmt.bindLong(10, entity.getStock());
- 
-        String kodeProduk = entity.getKodeProduk();
-        if (kodeProduk != null) {
-            stmt.bindString(11, kodeProduk);
+            stmt.bindString(12, createdAt);
         }
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, Product entity) {
         stmt.clearBindings();
+        stmt.bindLong(1, entity.getId());
+ 
+        String kodeKota = entity.getKodeKota();
+        if (kodeKota != null) {
+            stmt.bindString(2, kodeKota);
+        }
  
         String kodeUmkm = entity.getKodeUmkm();
         if (kodeUmkm != null) {
-            stmt.bindString(1, kodeUmkm);
+            stmt.bindString(3, kodeUmkm);
+        }
+ 
+        String kodeKategori = entity.getKodeKategori();
+        if (kodeKategori != null) {
+            stmt.bindString(4, kodeKategori);
+        }
+ 
+        String kodeProduk = entity.getKodeProduk();
+        if (kodeProduk != null) {
+            stmt.bindString(5, kodeProduk);
         }
  
         String nama = entity.getNama();
         if (nama != null) {
-            stmt.bindString(2, nama);
+            stmt.bindString(6, nama);
         }
-        stmt.bindLong(3, entity.getHarga());
+        stmt.bindLong(7, entity.getHarga());
+        stmt.bindLong(8, entity.getStock());
+ 
+        String namaUmkm = entity.getNamaUmkm();
+        if (namaUmkm != null) {
+            stmt.bindString(9, namaUmkm);
+        }
  
         String foto = entity.getFoto();
         if (foto != null) {
-            stmt.bindString(4, foto);
+            stmt.bindString(10, foto);
         }
  
         String updatedAt = entity.getUpdatedAt();
         if (updatedAt != null) {
-            stmt.bindString(5, updatedAt);
-        }
- 
-        String kodeKota = entity.getKodeKota();
-        if (kodeKota != null) {
-            stmt.bindString(6, kodeKota);
+            stmt.bindString(11, updatedAt);
         }
  
         String createdAt = entity.getCreatedAt();
         if (createdAt != null) {
-            stmt.bindString(7, createdAt);
-        }
-        stmt.bindLong(8, entity.getId());
- 
-        String kodeKategori = entity.getKodeKategori();
-        if (kodeKategori != null) {
-            stmt.bindString(9, kodeKategori);
-        }
-        stmt.bindLong(10, entity.getStock());
- 
-        String kodeProduk = entity.getKodeProduk();
-        if (kodeProduk != null) {
-            stmt.bindString(11, kodeProduk);
+            stmt.bindString(12, createdAt);
         }
     }
 
@@ -171,34 +183,36 @@ public class ProductDao extends AbstractDao<Product, Void> {
     @Override
     public Product readEntity(Cursor cursor, int offset) {
         Product entity = new Product( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // kodeUmkm
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // nama
-            cursor.getInt(offset + 2), // harga
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // foto
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // updatedAt
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // kodeKota
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // createdAt
-            cursor.getInt(offset + 7), // id
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // kodeKategori
-            cursor.getInt(offset + 9), // stock
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // kodeProduk
+            cursor.getInt(offset + 0), // id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // kodeKota
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // kodeUmkm
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // kodeKategori
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // kodeProduk
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // nama
+            cursor.getInt(offset + 6), // harga
+            cursor.getInt(offset + 7), // stock
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // namaUmkm
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // foto
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // updatedAt
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11) // createdAt
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Product entity, int offset) {
-        entity.setKodeUmkm(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setNama(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setHarga(cursor.getInt(offset + 2));
-        entity.setFoto(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setUpdatedAt(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setKodeKota(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setCreatedAt(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setId(cursor.getInt(offset + 7));
-        entity.setKodeKategori(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setStock(cursor.getInt(offset + 9));
-        entity.setKodeProduk(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setId(cursor.getInt(offset + 0));
+        entity.setKodeKota(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setKodeUmkm(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setKodeKategori(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setKodeProduk(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setNama(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setHarga(cursor.getInt(offset + 6));
+        entity.setStock(cursor.getInt(offset + 7));
+        entity.setNamaUmkm(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setFoto(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setUpdatedAt(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setCreatedAt(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
      }
     
     @Override

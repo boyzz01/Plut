@@ -8,6 +8,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ardeveloper.plut.R;
@@ -27,12 +28,14 @@ public class UmkmAdapter extends RecyclerView.Adapter<UmkmAdapter.MyViewHolder>
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, kodeTxt,nibTxt;
 
+        public ConstraintLayout baseView;
         public MyViewHolder(View view) {
             super(view);
-            name = view.findViewById(R.id.nama);
+            name = view.findViewById(R.id.namaTxt);
             kodeTxt = view.findViewById(R.id.kodeTxt);
-            nibTxt = view.findViewById(R.id.nibTxt);
+            nibTxt = view.findViewById(R.id.stockTxt);
 
+            baseView = view.findViewById(R.id.baseView);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,8 +66,12 @@ public class UmkmAdapter extends RecyclerView.Adapter<UmkmAdapter.MyViewHolder>
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final UMKM Umkm = contactListFiltered.get(position);
         holder.name.setText(Umkm.getNama());
-        holder.kodeTxt.setText(""+Umkm.getId());
-        holder.nibTxt.setText(""+Umkm.getNib());
+        holder.kodeTxt.setText("Kode UMKM : "+Umkm.getKodeUmkm());
+        holder.nibTxt.setText("NIB : "+Umkm.getNib());
+
+//        if (position%2==1){
+//            holder.baseView.setBackgroundColor(Color.parseColor("#F1F1F1"));
+//        }
 
     }
 

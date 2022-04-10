@@ -1,16 +1,24 @@
 package com.ardeveloper.plut.view
 
+import ApiService
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.ardeveloper.plut.BaseActivity
 import com.ardeveloper.plut.R
+import com.ardeveloper.plut.api.ApiClient
 import com.ardeveloper.plut.data.db.Kota
 import com.ardeveloper.plut.databinding.ActivityRegisterUmkmBinding
 import com.infield.epcs.utils.Status
 import es.dmoral.toasty.Toasty
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
 
 class RegisterUmkm : BaseActivity() {
@@ -18,6 +26,9 @@ class RegisterUmkm : BaseActivity() {
     private lateinit var b : ActivityRegisterUmkmBinding
     private lateinit var listKota : List<Kota>
     private lateinit var adapterKota : MutableList<String>
+    var mediaPath: String? = "N/A"
+    var encodedImage: String? = "N/A"
+    lateinit var imageFile : File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +43,6 @@ class RegisterUmkm : BaseActivity() {
         setupViewModel()
         initView()
         getData()
-
 
        b.simpan.setOnClickListener {
             if (b.spnKota.selectedItem==null){
@@ -50,35 +60,157 @@ class RegisterUmkm : BaseActivity() {
                b.etNIB.requestFocus()
                return@setOnClickListener
            }
+           hideSoftKeyboard(this,it)
 
-           uploadData()
+           val alert= AlertDialog.Builder(this)
+           alert.setTitle("Konfirmasi");
+           alert.setMessage("Apakah Data Sudah Benar?");
+           alert.setPositiveButton(
+               "Ya"
+           ) { dialog, which ->
+               uploadData()
+               dialog.dismiss()
+           }
+
+           alert.setNegativeButton(
+               "Tidak"
+           ) { dialog, which -> dialog.dismiss() }
+
+           alert.show()
+
 
        }
 
 
+//        b.txtChooseImage.setOnClickListener{
+//            val intent = Intent(this, ImageSelectActivity::class.java)
+//            intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, true) //default is true
+//            intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true) //default is true
+//            intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true) //default is true
+//
+//            startActivityForResult(intent, 1213)
+//        }
+
+
+
+
 
     }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        try {
+//
+//            // When an Image is picked
+//            if (requestCode == 1213 && resultCode == RESULT_OK && null != data) {
+//                mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH)
+//                Log.d("disini",mediaPath.toString())
+//                val selectedImage = BitmapFactory.decodeFile(mediaPath)
+//                b.imageUmkm.setImageBitmap(selectedImage)
+//                encodedImage = encodeImage(selectedImage)
+//
+//                imageFile = File(mediaPath)
+//                Log.d("imagefile",""+imageFile.name)
+//            }else{
+//                Log.d("disini2",""+requestCode+" "+resultCode)
+//            }
+//        } catch (e: Exception) {
+//            Toast.makeText(this, "Error, Gagal Mengambil Foto", Toast.LENGTH_LONG).show()
+//        }
+//    }
 
     private fun uploadData() {
-        val nib = b.etNIB.text.toString().toInt()
-        viewModel.addUmkm(b.etNama.text.toString(),nib,b.spnKota.selectedItem.toString()).observe(this, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        Log.d("tesDownload","Sukses"+resource.data!!.data)
-                        Toasty.success(this,"UMKM Berhasil Ditambahkan").show()
-                    }
-                    Status.ERROR -> {
-                        Log.d("tesDownload","Error "+it.message)
 
+        showLoadingDialog()
+        val apiInterface = ApiClient.getClient(this).create(ApiService::class.java)
+        val nib = b.etNIB.text.toString().toInt()
+//
+//
+//        val requestFile: RequestBody = RequestBody.create(
+//            "image/*".toMediaTypeOrNull(),imageFile
+//        )
+//
+//        val nama: RequestBody = RequestBody.create(
+//            "text/plain".toMediaTypeOrNull(),
+//            b.etNama.text.toString()
+//        )
+//
+//        val nibText: RequestBody = RequestBody.create(
+//            "text/plain".toMediaTypeOrNull(),
+//            b.etNIB.text.toString()
+//        )
+//        val kode: RequestBody = RequestBody.create(
+//            "text/plain".toMediaTypeOrNull(),
+//            b.spnKota.selectedItem.toString()
+//        )
+//
+//        val foto = MultipartBody.Part.createFormData("foto", imageFile.name, requestFile)
+//
+//        apiInterface.addUmkmWithFoto(nama,nibText,foto,kode)
+//            .enqueue(object : Callback<ResponseBody> {
+//                override fun onResponse(
+//                    call: Call<ResponseBody>,
+//                    response: Response<ResponseBody>
+//                ) {
+//                    Log.d("tesDownload","Sukses"+response.message())
+//                    Toasty.success(this@RegisterUmkm,"UMKM Berhasil Ditambahkan").show()
+//                }
+//
+//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                    Toasty.error(this@RegisterUmkm,"Error : "+t.message).show()
+//                }
+//
+//            })
+
+        apiInterface.addUmkm(b.etNama.text.toString(),nib,b.spnKota.selectedItem.toString())
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                  //  val response_data = response.body()?.string();
+                    if (response.isSuccessful){
+                        Toasty.success(this@RegisterUmkm,"UMKM Berhasil Ditambahkan").show()
+                        resetAll()
+                    }else{
+                        Toasty.error(this@RegisterUmkm,"Error : "+response.code()).show()
                     }
-                    Status.LOADING -> {
-                        Log.d("tesDownload",resource.toString())
-                    }
+                    hideLoadingDialog()
                 }
-            }
-        })
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Toasty.error(this@RegisterUmkm,"Error : "+t.message).show()
+                    hideLoadingDialog()
+                }
+
+            })
+//        viewModel.addUmkm(b.etNama.text.toString(),nib,b.spnKota.selectedItem.toString()).observe(this, Observer {
+//            it?.let { resource ->
+//                when (resource.status) {
+//                    Status.SUCCESS -> {
+//                        Log.d("tesDownload","Sukses"+resource.data!!.data)
+//                        Toasty.success(this,"UMKM Berhasil Ditambahkan").show()
+//                    }
+//                    Status.ERROR -> {
+//                        Log.d("tesDownload","Error "+it.message)
+//
+//                    }
+//                    Status.LOADING -> {
+//                        Log.d("tesDownload",resource.toString())
+//                    }
+//                }
+//            }
+//        })
     }
+
+    private fun resetAll() {
+        b.spnKota.setSelection(0)
+        b.etNIB.setText("")
+        b.etNIB.clearFocus()
+        b.etNama.setText("")
+
+    }
+
 
     private fun initView() {
         setSupportActionBar(b.toolbar2)
@@ -89,6 +221,8 @@ class RegisterUmkm : BaseActivity() {
         b.spnKota.setPositiveButton("Ok")
         b.spnKota.adapter = adapter
 
+
+//        val drawable : Drawable = resources.getDrawable(R.drawable.image_placeholder)
 
     }
 
@@ -122,8 +256,5 @@ class RegisterUmkm : BaseActivity() {
         })
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
+
 }

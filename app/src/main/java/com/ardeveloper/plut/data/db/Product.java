@@ -1,15 +1,32 @@
 package com.ardeveloper.plut.data.db;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 
+import java.io.Serializable;
+
 @Entity(nameInDb = "Product")
-public class Product {
+public class Product implements Serializable {
+	private static final long serialVersionUID = 0L;
+
+	@SerializedName("id")
+	public int id;
+
+	@SerializedName("kode_kota")
+	public String kodeKota;
 
 	@SerializedName("kode_umkm")
 	public String kodeUmkm;
+
+	@SerializedName("kode_kategori")
+	public String kodeKategori;
+
+	@SerializedName("kode_produk")
+	public String kodeProduk;
 
 	@SerializedName("nama")
 	public String nama;
@@ -17,45 +34,47 @@ public class Product {
 	@SerializedName("harga")
 	public int harga;
 
+	@SerializedName("stock")
+	public int stock;
+
+	@Nullable
+	@SerializedName("nama_umkm")
+	public String namaUmkm;
+
 	@SerializedName("foto")
 	public String foto;
 
 	@SerializedName("updated_at")
 	public String updatedAt;
 
-	@SerializedName("kode_kota")
-	public String kodeKota;
-
 	@SerializedName("created_at")
 	public String createdAt;
 
-	@SerializedName("id")
-	public int id;
 
-	@SerializedName("kode_kategori")
-	public String kodeKategori;
 
-	@SerializedName("stock")
-	public int stock;
 
-	@SerializedName("kode_produk")
-	public String kodeProduk;
 
-	@Generated(hash = 568478311)
-	public Product(String kodeUmkm, String nama, int harga, String foto,
-			String updatedAt, String kodeKota, String createdAt, int id,
-			String kodeKategori, int stock, String kodeProduk) {
+
+
+
+
+
+	@Generated(hash = 1603614635)
+	public Product(int id, String kodeKota, String kodeUmkm, String kodeKategori,
+			String kodeProduk, String nama, int harga, int stock, String namaUmkm,
+			String foto, String updatedAt, String createdAt) {
+		this.id = id;
+		this.kodeKota = kodeKota;
 		this.kodeUmkm = kodeUmkm;
+		this.kodeKategori = kodeKategori;
+		this.kodeProduk = kodeProduk;
 		this.nama = nama;
 		this.harga = harga;
+		this.stock = stock;
+		this.namaUmkm = namaUmkm;
 		this.foto = foto;
 		this.updatedAt = updatedAt;
-		this.kodeKota = kodeKota;
 		this.createdAt = createdAt;
-		this.id = id;
-		this.kodeKategori = kodeKategori;
-		this.stock = stock;
-		this.kodeProduk = kodeProduk;
 	}
 
 	@Generated(hash = 1890278724)
@@ -148,6 +167,14 @@ public class Product {
 
 	public void setKodeProduk(String kodeProduk) {
 		this.kodeProduk = kodeProduk;
+	}
+
+	public String getNamaUmkm() {
+		return this.namaUmkm;
+	}
+
+	public void setNamaUmkm(String namaUmkm) {
+		this.namaUmkm = namaUmkm;
 	}
 
 	

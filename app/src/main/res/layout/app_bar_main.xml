@@ -53,10 +53,11 @@
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:clickable="true"
+        android:scaleType="center"
+        android:visibility="gone"
         app:layout_anchor="@+id/imageView2"
         app:layout_anchorGravity="start|top"
-        app:srcCompat="@drawable/menu"
-        android:scaleType="center"/>
+        app:srcCompat="@drawable/menu" />
 
 
 

@@ -33,11 +33,13 @@ class Umkm : BaseActivity(),UmkmAdapter.UmkmAdapterListener{
         val view = b.root
         setContentView(view)
         init()
+
         getData()
     }
 
     private fun getData() {
-        setupViewModel()
+        showLoadingDialog()
+
         viewModel.getUmkm().observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
@@ -45,11 +47,11 @@ class Umkm : BaseActivity(),UmkmAdapter.UmkmAdapterListener{
                         umkmList.clear()
                         umkmList.addAll(resource.data!!)
                         mAdapter.notifyDataSetChanged()
-
+                        hideLoadingDialog()
                     }
                     Status.ERROR -> {
                         Log.d("tesDownload","Error"+it.message)
-
+                        hideLoadingDialog()
                     }
                     Status.LOADING -> {
                         Log.d("tesDownload",resource.toString())
@@ -71,6 +73,11 @@ class Umkm : BaseActivity(),UmkmAdapter.UmkmAdapterListener{
         b.rvUmkm.layoutManager = mLayoutManager
         b.rvUmkm.itemAnimator = DefaultItemAnimator()
         b.rvUmkm.adapter = mAdapter
+
+        b.fabAdd.setOnClickListener {
+            val intent = Intent(this, RegisterUmkm::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -105,9 +112,14 @@ class Umkm : BaseActivity(),UmkmAdapter.UmkmAdapterListener{
         val id = item.itemId
 
         //noinspection SimplifiableIfStatement
-        return if (id == R.id.action_search) {
-            true
-        } else super.onOptionsItemSelected(item)
+
+        if (id == R.id.action_search) {
+            return  true
+        } else if (id==R.id.refresh){
+            getData()
+        }
+        return  super.onOptionsItemSelected(item)
+
 
     }
 
@@ -121,11 +133,12 @@ class Umkm : BaseActivity(),UmkmAdapter.UmkmAdapterListener{
     }
 
     override fun onContactSelected(umkm: UMKM?) {
-        val intent = Intent(this@Umkm, InputBarang::class.java)
-        intent.putExtra("nama",umkm!!.nama)
-        intent.putExtra("id", umkm.id)
-        intent.putExtra("kota", umkm.kode_kota)
-        intent.putExtra("nib", umkm.nib)
+        val intent = Intent(this@Umkm, ProdukUmkm::class.java)
+        intent.putExtra("umkm",umkm)
+//        intent.putExtra("nama",umkm!!.nama)
+//        intent.putExtra("id", umkm.kodeUmkm)
+//        intent.putExtra("kota", umkm.kode_kota)
+//        intent.putExtra("nib", umkm.nib)
         startActivity(intent)
     }
 

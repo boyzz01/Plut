@@ -2,51 +2,84 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/baseView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="4dp"
-    android:background="@drawable/round"
-    android:backgroundTint="@color/primary"
     android:clickable="true"
-    android:paddingLeft="@dimen/activity_margin"
-    android:paddingTop="@dimen/row_padding"
-    android:paddingRight="@dimen/activity_margin"
-    android:paddingBottom="@dimen/row_padding">
+    android:elevation="8dp">
+
+    <ImageView
+        android:id="@+id/imgUmkm"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_data_store" />
+
+    <TextView
+        android:id="@+id/namaTxt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="nama"
+        android:textColor="@color/primaryText"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/retur"
+        app:layout_constraintStart_toEndOf="@+id/imgUmkm"
+        app:layout_constraintTop_toTopOf="@+id/imgUmkm" />
 
     <TextView
         android:id="@+id/kodeTxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#C1FFFFFF"
-        android:textSize="12sp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="10dp" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="kode"
+        android:textColor="@color/secondaryText"
+        android:textSize="@dimen/body"
+        app:layout_constraintEnd_toStartOf="@+id/retur"
+        app:layout_constraintStart_toEndOf="@+id/imgUmkm"
+        app:layout_constraintTop_toBottomOf="@+id/namaTxt" />
 
     <TextView
-        android:id="@+id/nama"
-        android:layout_width="wrap_content"
+        android:id="@+id/stockTxt"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="kode"
+        android:textColor="@color/secondaryText"
+        android:textSize="@dimen/body"
+        app:layout_constraintEnd_toStartOf="@+id/retur"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imgUmkm"
         app:layout_constraintTop_toBottomOf="@+id/kodeTxt" />
 
-    <TextView
-        android:id="@+id/nibTxt"
+    <ImageView
+        android:id="@+id/retur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nama" />
+        android:layout_gravity="center"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_next" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

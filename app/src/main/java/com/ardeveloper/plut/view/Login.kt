@@ -2,6 +2,8 @@ package com.ardeveloper.plut.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -50,6 +52,7 @@ class Login : BaseActivity() {
             }
 
 
+            showLoadingDialog()
             RetrofitBuilder.apiService.checkUser(binding.etUserId.text.toString(),binding.etPassword.text.toString())
                 .enqueue(object : Callback<ResponseBody>{
                     override fun onResponse(
@@ -62,22 +65,27 @@ class Login : BaseActivity() {
                         val sukses : Boolean = jsonResult.optBoolean("success")
 
                         if (sukses){
+                            hideLoadingDialog()
                             val gson = Gson()
                             val user : User = gson.fromJson(jsonResult.getJSONObject("data").toString(),User::class.java)
                             Log.d("tesDownload","Error "+user.username)
                             SharedPrefs.save(this@Login,SharedPrefs.LOGIN,true)
                             SharedPrefs.save(this@Login,SharedPrefs.USERNAME,user.username)
                             SharedPrefs.save(this@Login,SharedPrefs.USER_LEVEL,user.level)
+                            Toasty.success(this@Login,"Selamat Datang "+user.username).show()
                             val intent = Intent(this@Login, MainActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
                             finish()
                         }else{
                             Toasty.error(this@Login,"Username/Password Salah").show()
+                            hideLoadingDialog()
                         }
                     }
 
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Log.d("tesDownload","Error "+t.message)
+                        Toasty.error(this@Login,"Error : "+t.message).show()
+                        hideLoadingDialog()
                     }
 
                 })
@@ -137,5 +145,18 @@ class Login : BaseActivity() {
                                        before: Int, count: Int) {
             }
         })
+    }
+
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toasty.info(this, "Tekan Lagi Untuk Keluar").show()
+
+        Handler(Looper.getMainLooper()).postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 }

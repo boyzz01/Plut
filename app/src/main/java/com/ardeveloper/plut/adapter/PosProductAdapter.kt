@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ardeveloper.plut.R
 import com.ardeveloper.plut.data.db.Product
 import com.ardeveloper.plut.data.service.AllDbService
+import com.bumptech.glide.Glide
 import es.dmoral.toasty.Toasty
 
 
@@ -44,6 +45,22 @@ class PosProductAdapter(
         holder.priceTv.text = "Rp. "+product.harga
         holder.stockTv.text = "Stok : "+product.stock.toString()
 
+
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(context, ProductDetail.class);
+//                intent.putExtra("umkm",umkm.getNama());
+//                intent.putExtra("produk",product);
+//                context.startActivity(intent);
+//            }
+//        });
+        Glide.with(holder.imageIv)
+            .load(product.foto)
+            .error(R.drawable.imgproduct)
+            .placeholder(R.drawable.imgproduct)
+            .fitCenter()
+            .into(holder.imageIv)
         holder.btnAddToCart.setOnClickListener {
             val dbService : AllDbService
             val activity = context as Activity

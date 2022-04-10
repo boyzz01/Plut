@@ -1,12 +1,13 @@
 package com.ardeveloper.plut.data.service;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.ardeveloper.plut.MainApp;
 import com.ardeveloper.plut.data.db.DaoSession;
 import com.ardeveloper.plut.data.db.Keranjang;
 import com.ardeveloper.plut.data.db.KeranjangDao;
+import com.ardeveloper.plut.data.db.Product;
+import com.ardeveloper.plut.data.db.ProductDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -33,5 +34,12 @@ public class AllDbService {
             return 1;
         }
 
+    }
+
+    public void addToProduct(List<Product> productList){
+        DaoSession daoSession = ((MainApp) activity.getApplication()).getDaoSession();
+        ProductDao dao = daoSession.getProductDao();
+        dao.deleteAll();
+        dao.insertOrReplaceInTx(productList);
     }
 }

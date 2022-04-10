@@ -51,7 +51,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/round"
                 android:backgroundTint="#fafafa"
-                android:drawableStart="@drawable/ic_baseline_person_24"
+                android:drawableStart="@drawable/ic_baseline_person_24_black"
                 android:drawablePadding="10dp"
                 android:hint="Username"
                 android:inputType="text"

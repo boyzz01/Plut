@@ -40,6 +40,9 @@ class Kasir : BaseActivity(), PosProductAdapter.ProductAdapterListener {
         productList = ArrayList()
         productAdapter = PosProductAdapter(this,productList,this)
 
+        b.backImg.setOnClickListener {
+            onBackPressed()
+        }
 //        val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext)
 //        b.recycler.layoutManager = mLayoutManager
 
@@ -72,6 +75,7 @@ class Kasir : BaseActivity(), PosProductAdapter.ProductAdapterListener {
 
     private fun getData() {
         setupViewModel()
+        showLoadingDialog()
         viewModel.getProduk().observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
@@ -79,11 +83,11 @@ class Kasir : BaseActivity(), PosProductAdapter.ProductAdapterListener {
                         productList.clear()
                         productList.addAll(resource.data!!)
                         productAdapter!!.notifyDataSetChanged()
-
+                        hideLoadingDialog()
                     }
                     Status.ERROR -> {
                         Log.d("tesDownload","Error"+it.message)
-
+                        hideLoadingDialog()
                     }
                     Status.LOADING -> {
                         Log.d("tesDownload",resource.toString())

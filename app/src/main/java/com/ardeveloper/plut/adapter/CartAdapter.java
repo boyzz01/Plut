@@ -30,7 +30,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder>
             super(view);
             name = view.findViewById(R.id.nama);
             kodeTxt = view.findViewById(R.id.kodeTxt);
-            nibTxt = view.findViewById(R.id.nibTxt);
+            nibTxt = view.findViewById(R.id.stockTxt);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

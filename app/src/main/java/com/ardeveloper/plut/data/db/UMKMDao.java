@@ -26,6 +26,7 @@ public class UMKMDao extends AbstractDao<UMKM, Void> {
         public final static Property Kode_kota = new Property(1, String.class, "kode_kota", false, "KODE_KOTA");
         public final static Property Nama = new Property(2, String.class, "nama", false, "NAMA");
         public final static Property Nib = new Property(3, Integer.class, "nib", false, "NIB");
+        public final static Property KodeUmkm = new Property(4, String.class, "kodeUmkm", false, "KODE_UMKM");
     }
 
 
@@ -44,7 +45,8 @@ public class UMKMDao extends AbstractDao<UMKM, Void> {
                 "\"ID\" INTEGER," + // 0: id
                 "\"KODE_KOTA\" TEXT," + // 1: kode_kota
                 "\"NAMA\" TEXT," + // 2: nama
-                "\"NIB\" INTEGER);"); // 3: nib
+                "\"NIB\" INTEGER," + // 3: nib
+                "\"KODE_UMKM\" TEXT);"); // 4: kodeUmkm
     }
 
     /** Drops the underlying database table. */
@@ -76,6 +78,11 @@ public class UMKMDao extends AbstractDao<UMKM, Void> {
         if (nib != null) {
             stmt.bindLong(4, nib);
         }
+ 
+        String kodeUmkm = entity.getKodeUmkm();
+        if (kodeUmkm != null) {
+            stmt.bindString(5, kodeUmkm);
+        }
     }
 
     @Override
@@ -101,6 +108,11 @@ public class UMKMDao extends AbstractDao<UMKM, Void> {
         if (nib != null) {
             stmt.bindLong(4, nib);
         }
+ 
+        String kodeUmkm = entity.getKodeUmkm();
+        if (kodeUmkm != null) {
+            stmt.bindString(5, kodeUmkm);
+        }
     }
 
     @Override
@@ -114,7 +126,8 @@ public class UMKMDao extends AbstractDao<UMKM, Void> {
             cursor.isNull(offset + 0) ? null : cursor.getInt(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // kode_kota
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // nama
-            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3) // nib
+            cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3), // nib
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // kodeUmkm
         );
         return entity;
     }
@@ -125,6 +138,7 @@ public class UMKMDao extends AbstractDao<UMKM, Void> {
         entity.setKode_kota(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setNama(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setNib(cursor.isNull(offset + 3) ? null : cursor.getInt(offset + 3));
+        entity.setKodeUmkm(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

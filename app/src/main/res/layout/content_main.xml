@@ -28,10 +28,9 @@
 
                 <TextView
                     style="@style/viewParent.headerText"
-                    android:layout_gravity="bottom"
                     android:fontFamily="@font/open_sans_bold"
                     android:text="Plut \nInventory"
-                    android:textColor="#009688" />
+                    android:textColor="#FFFFFF" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -81,6 +80,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/umkm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -111,10 +111,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/laporanView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:cardCornerRadius="15dp"
                         app:cardPreventCornerOverlap="true">
 
@@ -130,12 +131,12 @@
                             <ImageView
                                 style="@style/homeCardImage"
                                 android:maxHeight="90dp"
-                                android:src="@drawable/home_ic_geography" />
+                                app:srcCompat="@drawable/report" />
 
                             <TextView
                                 android:id="@+id/textViewSub5Title"
                                 style="@style/viewParent.headerText.HomeCardTitle"
-                                android:text="Geography" />
+                                android:text="Laporan" />
 
                         </net.colindodd.gradientlayout.GradientRelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -181,6 +182,7 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/regView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -210,9 +212,11 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/transaksiView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:visibility="visible"
                         app:cardCornerRadius="15dp"
                         app:cardPreventCornerOverlap="true">
 
@@ -221,20 +225,19 @@
                             android:layout_height="match_parent"
                             android:minHeight="100dp"
                             android:padding="10dp"
-                            gl:start_color="@color/gradientLightGreen"
                             gl:end_color="@color/gradientLightBlue"
-                            gl:orientation="LEFT_RIGHT">
+                            gl:orientation="LEFT_RIGHT"
+                            gl:start_color="@color/gradientLightGreen">
 
                             <ImageView
                                 style="@style/homeCardImage"
                                 android:maxHeight="90dp"
-                                android:src="@drawable/settings" />
+                                app:srcCompat="@drawable/transaksi" />
 
                             <TextView
-                                android:id="@+id/textViewSub4Title"
+                                android:id="@+id/textViewSub6Title"
                                 style="@style/viewParent.headerText.HomeCardTitle"
-                                android:text="Setting" />
-
+                                android:text="Transaksi" />
 
                         </net.colindodd.gradientlayout.GradientRelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -259,12 +262,13 @@
                             <ImageView
                                 style="@style/homeCardImage"
                                 android:maxHeight="90dp"
-                                android:src="@drawable/home_ic_chemistry" />
+                                android:src="@drawable/settings" />
 
                             <TextView
-                                android:id="@+id/textViewSub6Title"
+                                android:id="@+id/textViewSub4Title"
                                 style="@style/viewParent.headerText.HomeCardTitle"
-                                android:text="Politics" />
+                                android:text="Setting" />
+
 
                         </net.colindodd.gradientlayout.GradientRelativeLayout>
                     </androidx.cardview.widget.CardView>
@@ -273,7 +277,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:cardCornerRadius="15dp"
                         app:cardPreventCornerOverlap="true">
 
@@ -289,11 +293,11 @@
                             <ImageView
                                 style="@style/homeCardImage"
                                 android:maxHeight="90dp"
-                                android:src="@drawable/home_ic_biology" />
+                                app:srcCompat="@drawable/settings" />
 
                             <TextView
                                 style="@style/viewParent.headerText.HomeCardTitle"
-                                android:text="Biology" />
+                                android:text="Pengaturan" />
 
 
                         </net.colindodd.gradientlayout.GradientRelativeLayout>
