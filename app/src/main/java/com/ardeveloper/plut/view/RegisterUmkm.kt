@@ -1,9 +1,11 @@
 package com.ardeveloper.plut.view
 
 import ApiService
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
@@ -13,15 +15,18 @@ import com.ardeveloper.plut.api.ApiClient
 import com.ardeveloper.plut.data.db.Kota
 import com.ardeveloper.plut.databinding.ActivityRegisterUmkmBinding
 import com.infield.epcs.utils.Status
+import com.wdullaer.materialdatetimepicker.Utils
 import es.dmoral.toasty.Toasty
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
-class RegisterUmkm : BaseActivity() {
+class RegisterUmkm : BaseActivity(){
 
     private lateinit var b : ActivityRegisterUmkmBinding
     private lateinit var listKota : List<Kota>
@@ -29,7 +34,7 @@ class RegisterUmkm : BaseActivity() {
     var mediaPath: String? = "N/A"
     var encodedImage: String? = "N/A"
     lateinit var imageFile : File
-
+    var cal = Calendar.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -222,10 +227,35 @@ class RegisterUmkm : BaseActivity() {
         b.spnKota.adapter = adapter
 
 
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView()
+            }
+        }
+
+        b.tglLahir.setOnClickListener {
+            DatePickerDialog(this@RegisterUmkm,
+                dateSetListener,
+                // set DatePickerDialog to point to today's date when it loads up
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+
 //        val drawable : Drawable = resources.getDrawable(R.drawable.image_placeholder)
 
     }
+    private fun updateDateInView() {
+        val myFormat = "dd/MM/yyyy" // mention the format you need
+        val locale = Locale("id", "ID")
+        val sdf = SimpleDateFormat(myFormat, locale)
+        b.tglLahir.setText( sdf.format(cal.time))
 
+    }
     private fun getData() {
         viewModel.getKota().observe(this, Observer {
             it?.let { resource ->
@@ -255,6 +285,8 @@ class RegisterUmkm : BaseActivity() {
             }
         })
     }
+
+
 
 
 }

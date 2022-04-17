@@ -37,6 +37,10 @@ class Umkm : BaseActivity(),UmkmAdapter.UmkmAdapterListener{
         getData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
     private fun getData() {
         showLoadingDialog()
 

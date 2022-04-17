@@ -85,6 +85,9 @@ dependencies {
     implementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
     implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'com.nex3z:notification-badge:1.0.4'
+
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'

@@ -1,6 +1,7 @@
 package com.ardeveloper.plut.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ardeveloper.plut.R
 import com.ardeveloper.plut.data.model.Cart
+import com.ardeveloper.plut.data.response.ResponseProduk
 import com.ardeveloper.plut.utils.Helper
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -18,7 +20,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 
 
 
-class SellAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SellAdapter(private val context: Context,
+                  private val productList: List<ResponseProduk>
+                  ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val listProduct = mutableListOf<Cart>()
     private val tempList = mutableListOf<String>()
@@ -96,7 +100,7 @@ class SellAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val decreaseBtn = view.findViewById<Button>(R.id.btn_minus)
         private val increaseBtn = view.findViewById<Button>(R.id.btn_plus)
         private val deleteBtn = view.findViewById<Button>(R.id.btn_delete)
-        private val noteTv = view.findViewById<TextView>(R.id.tv_note)
+     //   private val noteTv = view.findViewById<TextView>(R.id.tv_note)
 
 
         @SuppressLint("SetTextI18n")
@@ -107,7 +111,7 @@ class SellAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             priceTv.text = "Rp."+Helper.convertToCurrency(product.harga.toString())
             val stock = product?.stock!!.toDouble()
             countTv.text = Helper.convertToCurrency(data.count!!)
-            noteTv.text = "${data.note}"
+          //  noteTv.text = "${data.note}"
 
             if("0" == product.stock.toString()){
                 stockTv.visibility = View.GONE

@@ -34,6 +34,11 @@ class AllProduk : BaseActivity(), AllProductAdapter.ProductAdapterListener {
         getData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
     private fun getData() {
         setupViewModel()
         showLoadingDialog()

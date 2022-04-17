@@ -44,6 +44,7 @@ import com.obsez.android.lib.filechooser.ChooserDialog
 import es.dmoral.toasty.Toasty
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -76,6 +77,21 @@ open class BaseActivity : AppCompatActivity() {
     }
 
 
+    fun convertToCurrency(value: String): String {
+        val currentValue: Double
+        currentValue = try {
+            java.lang.Double.parseDouble(value)
+        } catch (nfe: NumberFormatException) {
+            0.0
+        }
+
+        return convertToCurrency(currentValue)
+    }
+
+    fun convertToCurrency(amount: Double): String {
+        val formatter = DecimalFormat("#,###,###")
+        return formatter.format(amount).replace(",", ".")
+    }
 
     open fun hideSoftKeyboard(activity: Activity, view: View) {
         val imm: InputMethodManager =

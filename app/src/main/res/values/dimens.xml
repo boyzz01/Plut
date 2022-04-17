@@ -32,4 +32,6 @@
     <dimen name="subtitle">16sp</dimen>
     <dimen name="heading">18sp</dimen>
     <dimen name="title">20sp</dimen>
+    <dimen name="standard_margin_3x">24dp</dimen>
+    <dimen name="standart_input_height">36dp</dimen>
 </resources>

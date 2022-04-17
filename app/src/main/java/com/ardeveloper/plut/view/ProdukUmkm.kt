@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -25,6 +26,7 @@ import com.ardeveloper.plut.data.db.Product
 import com.ardeveloper.plut.data.db.UMKM
 import com.ardeveloper.plut.data.service.AllDbService
 import com.ardeveloper.plut.databinding.ActivityProdukUmkmBinding
+import com.ardeveloper.plut.utils.Helper
 import com.infield.epcs.utils.Status
 import com.obsez.android.lib.filechooser.ChooserDialog
 import es.dmoral.toasty.Toasty
@@ -171,7 +173,7 @@ class ProdukUmkm : BaseActivity(), ProductUmkmAdapter.ItemAdapterListener {
 
     open fun folderChooser() {
 
-        val folder = File(Environment.getExternalStorageDirectory(), "Plut/Export/Produk/"+umkm.kodeUmkm)
+        val folder = File(this.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "Plut/Export/Produk/"+umkm.kodeUmkm)
         if (!folder.exists()) {
             folder.mkdirs()
         }
@@ -204,7 +206,7 @@ class ProdukUmkm : BaseActivity(), ProductUmkmAdapter.ItemAdapterListener {
         Log.d("tes",file.path)
         val sqliteToExcel =
             SQLiteToExcel(applicationContext,"plut_db", path)
-        sqliteToExcel.exportSingleTable("product", umkm.nama+" ${format.format(Date())}.xls", object : SQLiteToExcel.ExportListener {
+        sqliteToExcel.exportSingleTable("product", "/"+umkm.nama+"-${System.currentTimeMillis().toString()}.xls", object : SQLiteToExcel.ExportListener {
             override fun onStart() {
               showLoadingDialog()
             }
@@ -213,6 +215,7 @@ class ProdukUmkm : BaseActivity(), ProductUmkmAdapter.ItemAdapterListener {
                 val mHand = Handler()
                 mHand.postDelayed({
                     hideLoadingDialog()
+                    Helper.shareXlsToApps(this@ProdukUmkm, Uri.parse(filePath))
                     Toasty.success(
                         this@ProdukUmkm,
                        "Data Berhasil di Export",

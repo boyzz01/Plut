@@ -48,6 +48,8 @@ object Utils {
             permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
 
+
+
         //WRITE_EXTERNAL_STORAGE
         if (ContextCompat.checkSelfPermission(
                 activity,

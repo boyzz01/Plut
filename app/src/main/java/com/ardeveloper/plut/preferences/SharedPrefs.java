@@ -11,7 +11,7 @@ public class SharedPrefs {
 
     public static String USER_LEVEL = "user_level";
     public static String USERNAME = "username";
-
+    public static String USERID= "userid";
 
     private static SharedPreferences getPrefs(Context context) {
         return context.getSharedPreferences(SHARED_PREFS_FILE_NAME1, Context.MODE_PRIVATE);

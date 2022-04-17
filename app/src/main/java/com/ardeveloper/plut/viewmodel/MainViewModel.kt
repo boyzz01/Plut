@@ -45,6 +45,9 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
         }
     }
 
+
+
+
     fun getProduk(kode: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {

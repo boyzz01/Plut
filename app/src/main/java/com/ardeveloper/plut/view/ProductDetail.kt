@@ -96,6 +96,8 @@ class ProductDetail : BaseActivity() {
 
     }
 
+
+
     private fun initView() {
         val intent = intent
         kodeProduct = intent.getStringExtra("produk").toString()

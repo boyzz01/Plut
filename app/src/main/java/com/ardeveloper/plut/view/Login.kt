@@ -69,9 +69,11 @@ class Login : BaseActivity() {
                             val gson = Gson()
                             val user : User = gson.fromJson(jsonResult.getJSONObject("data").toString(),User::class.java)
                             Log.d("tesDownload","Error "+user.username)
-                            SharedPrefs.save(this@Login,SharedPrefs.LOGIN,true)
+
                             SharedPrefs.save(this@Login,SharedPrefs.USERNAME,user.username)
                             SharedPrefs.save(this@Login,SharedPrefs.USER_LEVEL,user.level)
+                            SharedPrefs.save(this@Login,SharedPrefs.USERID,user.id.toString())
+                            SharedPrefs.save(this@Login,SharedPrefs.LOGIN,true)
                             Toasty.success(this@Login,"Selamat Datang "+user.username).show()
                             val intent = Intent(this@Login, MainActivity::class.java)
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)

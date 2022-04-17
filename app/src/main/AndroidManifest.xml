@@ -26,6 +26,15 @@
         android:supportsRtl="true"
         android:theme="@style/main">
         <activity
+            android:name=".view.DetailTransaksi"
+            android:exported="false" />
+        <activity
+            android:name=".view.Sukses"
+            android:exported="false" />
+        <activity
+            android:name=".view.Konfirmasi"
+            android:exported="false" />
+        <activity
             android:name=".view.AllTransaksi"
             android:exported="false" />
         <activity
@@ -100,7 +109,9 @@
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" />
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <meta-data

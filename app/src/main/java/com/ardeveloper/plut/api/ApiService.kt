@@ -1,10 +1,12 @@
 import com.ardeveloper.plut.data.db.*
-import com.ardeveloper.plut.data.model.DetailProductResponse
+import com.ardeveloper.plut.data.response.ResponseCart
+import com.ardeveloper.plut.data.response.ResponseShop
+import com.ardeveloper.plut.data.response.ResponseProduk
+import com.ardeveloper.plut.data.response.ResponseTransaksi
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.http.*
 
 interface ApiService {
@@ -56,10 +58,16 @@ interface ApiService {
         @Part("kode") kode: RequestBody,
         @Part("nama") nama: RequestBody,
         @Part("harga") harga: RequestBody,
-        @Part("kategori") kat: RequestBody,
-        @Part("umkm") umkm: RequestBody,
-        @Part("kota") kota: RequestBody,
         @Part foto:MultipartBody.Part,
+        @Part("stock") stock:RequestBody ): Call<ResponseBody>
+
+
+    @Multipart
+    @POST("edit_produk")
+    fun editProduk(
+        @Part("kode") kode: RequestBody,
+        @Part("nama") nama: RequestBody,
+        @Part("harga") harga: RequestBody,
         @Part("stock") stock:RequestBody ): Call<ResponseBody>
 
     @FormUrlEncoded
@@ -79,6 +87,25 @@ interface ApiService {
         @Field("user") user: String,): Call<ResponseBody>
 
 
+    @FormUrlEncoded
+    @POST("add_cart")
+    fun addCart(
+        @Field("product_id") p_id: String,
+        @Field("user_id") user_id: Int,
+        @Field("jumlah") jumlah: Int): Call<ResponseBody>
+
+
+    @FormUrlEncoded
+    @POST("add_transaksi")
+    fun addTransaksi(
+        @Field("total_uang") uang: Int,
+        @Field("user_id") user_id: Int,
+        @Field("diskon") diskon: Int,
+        @Field("total") total: Int,
+        @Field("kembalian") kembalian: Int,
+        @Field("subtotal") subtotal: Int,
+        @Field("uang_diterima") bayar: Int): Call<ResponseBody>
+
     @Multipart
     @POST("add_umkm")
     fun addUmkmWithFoto(
@@ -92,6 +119,23 @@ interface ApiService {
     suspend fun getProduk(
         @Path("kode") kode: String
     ): List<Product>
+
+    @GET("get_cart/{kode}")
+    fun getCart(
+        @Path("kode") kode: String
+    ): Call<ResponseCart>
+
+
+    @GET("get_transaksi/{kode}")
+    fun getTransksi(
+        @Path("kode") kode: String
+    ): Call<ResponseTransaksi>
+
+    @FormUrlEncoded
+    @POST("produk_shop")
+    fun getProdukShop(
+        @Field("id_user") id_user: String
+    ): Call<ResponseShop>
 
     @GET("produk_umkm/{kode}")
     fun getProdukbyId(
