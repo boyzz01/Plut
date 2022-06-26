@@ -1,5 +1,7 @@
 package com.ardeveloper.plut.data.response;
 
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 public class TransaksiItem {
@@ -36,6 +38,18 @@ public class TransaksiItem {
 
 	@SerializedName("total_produk")
 	private int totalProduk;
+
+
+	@Nullable
+	@SerializedName("foto")
+	private String foto;
+
+
+	@Nullable
+	public String getFoto() {
+		return foto;
+	}
+
 
 
 	public int getHarga() {

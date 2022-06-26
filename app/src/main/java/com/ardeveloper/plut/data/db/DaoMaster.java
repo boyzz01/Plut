@@ -25,7 +25,6 @@ public class DaoMaster extends AbstractDaoMaster {
         KeranjangDao.createTable(db, ifNotExists);
         KotaDao.createTable(db, ifNotExists);
         ProductDao.createTable(db, ifNotExists);
-        UMKMDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
     }
 
@@ -35,7 +34,6 @@ public class DaoMaster extends AbstractDaoMaster {
         KeranjangDao.dropTable(db, ifExists);
         KotaDao.dropTable(db, ifExists);
         ProductDao.dropTable(db, ifExists);
-        UMKMDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
     }
 
@@ -59,7 +57,6 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(KeranjangDao.class);
         registerDaoClass(KotaDao.class);
         registerDaoClass(ProductDao.class);
-        registerDaoClass(UMKMDao.class);
         registerDaoClass(UserDao.class);
     }
 

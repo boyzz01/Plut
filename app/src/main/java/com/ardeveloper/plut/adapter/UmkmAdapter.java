@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -13,10 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ardeveloper.plut.R;
 import com.ardeveloper.plut.data.db.UMKM;
+import com.ardeveloper.plut.preferences.SharedPrefs;
+import com.bumptech.glide.Glide;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UmkmAdapter extends RecyclerView.Adapter<UmkmAdapter.MyViewHolder>
         implements Filterable {
@@ -24,9 +29,12 @@ public class UmkmAdapter extends RecyclerView.Adapter<UmkmAdapter.MyViewHolder>
     private List<UMKM> umkmList;
     private List<UMKM> contactListFiltered;
     private UmkmAdapterListener listener;
+    private deleteListener deletelistener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, kodeTxt,nibTxt;
+        public CircleImageView imageView;
+        public ImageView delete;
 
         public ConstraintLayout baseView;
         public MyViewHolder(View view) {
@@ -34,8 +42,20 @@ public class UmkmAdapter extends RecyclerView.Adapter<UmkmAdapter.MyViewHolder>
             name = view.findViewById(R.id.namaTxt);
             kodeTxt = view.findViewById(R.id.kodeTxt);
             nibTxt = view.findViewById(R.id.stockTxt);
+            delete = view.findViewById(R.id.retur);
 
+            imageView = view.findViewById(R.id.imgUmkm);
             baseView = view.findViewById(R.id.baseView);
+
+            if (SharedPrefs.getInt(context,SharedPrefs.USER_LEVEL)==2){
+                delete.setVisibility(View.VISIBLE);
+                delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deletelistener.onDelete(contactListFiltered.get(getAdapterPosition()));
+                    }
+                });
+            }
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -47,11 +67,12 @@ public class UmkmAdapter extends RecyclerView.Adapter<UmkmAdapter.MyViewHolder>
     }
 
 
-    public UmkmAdapter(Context context, List<UMKM> umkmList, UmkmAdapterListener listener) {
+    public UmkmAdapter(Context context, List<UMKM> umkmList, UmkmAdapterListener listener,deleteListener deleteListener) {
         this.context = context;
         this.listener = listener;
         this.umkmList = umkmList;
         this.contactListFiltered = umkmList;
+        this.deletelistener = deleteListener;
     }
 
     @Override
@@ -68,6 +89,14 @@ public class UmkmAdapter extends RecyclerView.Adapter<UmkmAdapter.MyViewHolder>
         holder.name.setText(Umkm.getNama());
         holder.kodeTxt.setText("Kode UMKM : "+Umkm.getKodeUmkm());
         holder.nibTxt.setText("NIB : "+Umkm.getNib());
+
+
+        Glide.with(holder.imageView)
+                .load(Umkm.getFoto())
+                .error(R.drawable.shop)
+                .placeholder(R.drawable.shop)
+                .fitCenter()
+                .into(holder.imageView);
 
 //        if (position%2==1){
 //            holder.baseView.setBackgroundColor(Color.parseColor("#F1F1F1"));
@@ -115,6 +144,9 @@ public class UmkmAdapter extends RecyclerView.Adapter<UmkmAdapter.MyViewHolder>
         };
     }
 
+    public interface deleteListener{
+        void onDelete(UMKM umkm);
+    }
     public interface UmkmAdapterListener {
         void onContactSelected(UMKM Umkm);
     }

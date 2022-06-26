@@ -30,7 +30,7 @@ class ProductDetail : BaseActivity() {
     private lateinit var b : ActivityProductDetailBinding
     private lateinit var kodeProduct : String
     private lateinit var product : Product
-
+    var opname : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityProductDetailBinding.inflate(layoutInflater)
@@ -42,30 +42,7 @@ class ProductDetail : BaseActivity() {
 
     private fun getData() {
         showLoadingDialog()
-//        val apiInterface = ApiClient.getClient(this).create(ApiService::class.java)
 //
-//        apiInterface.getProdukbyId(kodeProduct).enqueue(object : Callback<List<Product>>{
-//            override fun onResponse(call: Call<List<Product>>, response: Response<List<Product>>) {
-//                product = response.body().
-//                hideLoadingDialog()
-//                if (product!=null){
-//                    setData()
-//
-//                }else{
-//
-//                    Toasty.error(this@ProductDetail,"Produk Tidak ditemukan").show()
-//                    finish()
-//                }
-//
-//            }
-//
-//            override fun onFailure(call: Call<List<Product>>, t: Throwable) {
-//                hideLoadingDialog()
-//                Toasty.error(this@ProductDetail,"Error"+t.message).show()
-//                finish()
-//            }
-//
-//        })
         viewModel.getProdukDetail(kodeProduct).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
@@ -101,7 +78,7 @@ class ProductDetail : BaseActivity() {
     private fun initView() {
         val intent = intent
         kodeProduct = intent.getStringExtra("produk").toString()
-
+        opname = intent.getBooleanExtra("opname",false)
         setSupportActionBar(b.toolbar8)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true);
         supportActionBar!!.setDisplayShowHomeEnabled(true);
@@ -115,8 +92,8 @@ class ProductDetail : BaseActivity() {
         supportActionBar!!.subtitle = product.nama
         b.kodeProduk.setText(product.kodeProduk)
         b.namaProduk.setText(product.nama)
-        b.jumStock.setText(""+product.stock)
-        b.hargaProduk.setText(""+product.harga)
+        b.jumStock.setText(""+convertToCurrency(product.stock.toString()))
+        b.hargaProduk.setText(""+convertToCurrency(product.harga.toString()))
         b.namaUmkm.setText(product.namaUmkm)
         Glide.with(b.imageView15)
             .load(product.foto)
@@ -159,22 +136,35 @@ class ProductDetail : BaseActivity() {
             val mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
             mBluetoothAdapter.enable()
             pilihan = 2
+//
+//            val bar = product.kodeProduk
+//            Log.d("barcode","${product.kodeProduk}")
+//            val format = SimpleDateFormat(" yyyy-MM-dd  HH:mm:ss")
+//            dataCetak =   """
+//            [L]
+//            [C]<b><font size='14'>${product.nama}</font></b>
+//            [L]
+//            [C]<b><font size='14'>${product.kodeProduk}</font></b>
+//            [C]================================
+//            [L]<b>Nama UMKM :</b>
+//            [L]${product.namaUmkm}
+//            [L]<b>Harga : </b>
+//            [L]${convertToCurrency(product.harga.toString())}
+//            [L]
+//            [C]<qrcode size='20'>$bar</qrcode>
+//            [C]================================
+//            """
+
 
             val bar = product.kodeProduk
             Log.d("barcode","${product.kodeProduk}")
             val format = SimpleDateFormat(" yyyy-MM-dd  HH:mm:ss")
             dataCetak =   """
             [L]
-            [C]<b><font size='14'>${product.nama}</font></b>
-            [L]
             [C]<b><font size='14'>${product.kodeProduk}</font></b>
-            [C]================================
-            [L]<b>Nama UMKM :</b>
-            [L]${product.namaUmkm}
-            [L]<b>Harga : </b>
             [L]${product.harga.toString()}
-            [L]
-            [C]<qrcode size='20'>$bar</qrcode>
+            [C]================================
+            [C]<barcode type='ean13' height='10'>${bar}</barcode>
             [C]================================
             """
 

@@ -4,19 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#92D8D8"
     android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ulos2"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/background" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#31000000"
+        android:orientation="vertical"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -119,7 +134,7 @@
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/roboto_black"
         android:text="Powered By"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +187,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto_black"
         android:text="SALES INVENTORY \nMANAGEMENT GALLERY PLUT"
-        android:textColor="#1D4935"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

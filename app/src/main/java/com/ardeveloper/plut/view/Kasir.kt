@@ -87,7 +87,7 @@ class Kasir : BaseActivity(), PosProductAdapter.ProductAdapterListener,
         )
 
         b.imageView13.setOnClickListener {
-            val intent = Intent(this, Transaksi::class.java)
+            val intent = Intent(this, TransaksiView::class.java)
             startActivity(intent)
         }
     }

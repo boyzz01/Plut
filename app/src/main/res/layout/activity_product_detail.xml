@@ -233,7 +233,7 @@
             android:background="@color/kedua"
             android:src="@drawable/ic_baseline_edit_24"
             app:fab_colorNormal="@color/kedua"
-            fab:fab_label="Opname"
+            fab:fab_label="Restok"
             fab:fab_size="mini" />
 
         <com.github.clans.fab.FloatingActionButton

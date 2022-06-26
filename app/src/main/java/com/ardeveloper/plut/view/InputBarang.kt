@@ -1,9 +1,10 @@
 package com.ardeveloper.plut.view
 
 import ApiService
-import `in`.mayanknagwanshi.imagepicker.ImageSelectActivity
+import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +21,8 @@ import com.ardeveloper.plut.data.db.Product
 import com.ardeveloper.plut.data.db.UMKM
 import com.ardeveloper.plut.data.db.User
 import com.ardeveloper.plut.databinding.ActivityInputBarangBinding
-import com.ardeveloper.plut.databinding.ActivityUmkmBinding
+import com.github.dhaval2404.imagepicker.ImagePicker
+
 import com.google.gson.Gson
 import com.infield.epcs.utils.Status
 import es.dmoral.toasty.Toasty
@@ -124,7 +126,7 @@ class InputBarang : BaseActivity() {
         )
         val kodeKota: RequestBody = RequestBody.create(
             "text/plain".toMediaTypeOrNull(),
-            umkm.kode_kota
+            umkm.kodeKota
         )
         val stock: RequestBody = RequestBody.create(
             "text/plain".toMediaTypeOrNull(),
@@ -199,36 +201,60 @@ class InputBarang : BaseActivity() {
         b.spnKategori.adapter = adapter
 
         b.txtChooseImage2.setOnClickListener{
-            val intent = Intent(this, ImageSelectActivity::class.java)
-            intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, true) //default is true
-            intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true) //default is true
-            intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true) //default is true
-
-            startActivityForResult(intent, 1213)
+//            val intent = Intent(this, ImageSelectActivity::class.java)
+//            intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, true) //default is true
+//            intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true) //default is true
+//            intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true) //default is true
+//
+//            startActivityForResult(intent, 1213)
+            ImagePicker.with(this)
+                .crop()	    			//Crop image(Optional), Check Customization for more option
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .saveDir(getExternalFilesDir("plut")!!)
+                .start()
         }
     }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//                super.onActivityResult(requestCode, resultCode, data)
+//        try {
+//
+//            // When an Image is picked
+//            if (requestCode == 1213 && resultCode == RESULT_OK && null != data) {
+//                mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH)
+//                Log.d("disini",mediaPath.toString())
+//                val selectedImage = BitmapFactory.decodeFile(mediaPath)
+//                b.imageUmkm2.setImageBitmap(selectedImage)
+//                encodedImage = encodeImage(selectedImage)
+//
+//                imageFile = File(mediaPath)
+//                Log.d("imagefile",""+ imageFile!!.name)
+//            }else{
+//                Log.d("disini2",""+requestCode+" "+resultCode)
+//            }
+//        } catch (e: Exception) {
+//            Toast.makeText(this, "Error, Gagal Mengambil Foto", Toast.LENGTH_LONG).show()
+//        }
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-                super.onActivityResult(requestCode, resultCode, data)
-        try {
-
-            // When an Image is picked
-            if (requestCode == 1213 && resultCode == RESULT_OK && null != data) {
-                mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH)
-                Log.d("disini",mediaPath.toString())
-                val selectedImage = BitmapFactory.decodeFile(mediaPath)
-                b.imageUmkm2.setImageBitmap(selectedImage)
-                encodedImage = encodeImage(selectedImage)
-
-                imageFile = File(mediaPath)
-                Log.d("imagefile",""+ imageFile!!.name)
-            }else{
-                Log.d("disini2",""+requestCode+" "+resultCode)
-            }
-        } catch (e: Exception) {
-            Toast.makeText(this, "Error, Gagal Mengambil Foto", Toast.LENGTH_LONG).show()
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            //Image Uri will not be null for RESULT_OK
+            val uri: Uri = data?.data!!
+            imageFile = File(uri.path)
+            mediaPath = uri.path
+            Log.d("tesfoto",uri.path.toString())
+            // Use Uri object instead of File to avoid storage permissions
+            b.imageUmkm2.setImageURI(uri)
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun getData() {
         setupViewModel()
         viewModel.getKategori().observe(this, Observer {

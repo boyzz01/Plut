@@ -16,15 +16,13 @@ import com.ardeveloper.plut.data.response.ResponseCart
 import com.ardeveloper.plut.data.response.ResponseProduk
 import com.ardeveloper.plut.databinding.ActivityTransaksiBinding
 import com.ardeveloper.plut.preferences.SharedPrefs
-import com.ardeveloper.plut.utils.Helper
-import com.ardeveloper.plut.utils.Helper.convertToCurrency
 import es.dmoral.toasty.Toasty
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Transaksi : BaseActivity(), KeranjangAdapter.cartListener {
+class TransaksiView : BaseActivity(), KeranjangAdapter.cartListener {
 
     private lateinit var apiInterface: ApiService
     private lateinit var productList : MutableList<ResponseProduk>
@@ -43,6 +41,10 @@ class Transaksi : BaseActivity(), KeranjangAdapter.cartListener {
         getData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
     private fun getData() {
         showLoadingDialog()
 
@@ -65,7 +67,7 @@ class Transaksi : BaseActivity(), KeranjangAdapter.cartListener {
                         cartAdapter!!.notifyDataSetChanged()
                     }else{
                         b.vTotal.visibility = View.GONE
-                        Toasty.info(this@Transaksi,"No Data").show()
+                        Toasty.info(this@TransaksiView,"No Data").show()
                         b.viewRefresh.visibility = View.VISIBLE
                     }
 
@@ -73,13 +75,13 @@ class Transaksi : BaseActivity(), KeranjangAdapter.cartListener {
                     hideLoadingDialog()
 
                 }else{
-                    Toasty.error(this@Transaksi,"Error : "+response.code()).show()
+                    Toasty.error(this@TransaksiView,"Error : "+response.code()).show()
                     hideLoadingDialog()
                 }
             }
 
             override fun onFailure(call: Call<ResponseCart>, t: Throwable) {
-                Toasty.error(this@Transaksi,"Error : "+t.message).show()
+                Toasty.error(this@TransaksiView,"Error : "+t.message).show()
                 hideLoadingDialog()
             }
         })

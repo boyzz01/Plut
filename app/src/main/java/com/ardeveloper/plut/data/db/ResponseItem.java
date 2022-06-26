@@ -17,7 +17,7 @@ public class ResponseItem{
 	private String noktp;
 
 	@SerializedName("nib")
-	private int nib;
+	private String nib;
 
 	@SerializedName("created_at")
 	private String createdAt;
@@ -62,7 +62,7 @@ public class ResponseItem{
 		return noktp;
 	}
 
-	public int getNib(){
+	public String getNib(){
 		return nib;
 	}
 

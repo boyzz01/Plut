@@ -19,6 +19,7 @@ class Sukses : AppCompatActivity() {
         val view = b.root
         setContentView(view)
         initView()
+        Gblvariabel.from = "1"
     }
 
     private fun initView() {
@@ -35,8 +36,9 @@ class Sukses : AppCompatActivity() {
         b.btnEnd.setOnClickListener {
             val intent = Intent(this, DetailTransaksi::class.java)
             intent.putExtra("id",idtrans)
-            Log.d("tes", idtrans!!)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -44,8 +46,8 @@ class Sukses : AppCompatActivity() {
 
         val intent = Intent(this, DetailTransaksi::class.java)
         intent.putExtra("id",idtrans)
-        Log.d("tes", idtrans!!)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-        super.onBackPressed()
+        finish()
     }
 }

@@ -61,4 +61,5 @@
 
     <color name="colorAccentDarkHard">#14568A</color>
     <color name="colorPrimaryLight">#7BBBED</color>
+    <color name="orange">#ffa500</color>
 </resources>

@@ -15,6 +15,17 @@ public class Transaksi{
 
 
 
+	@SerializedName("metode")
+	private String metode;
+
+
+	@SerializedName("bank")
+	private String bank;
+
+
+	@SerializedName("nokartu")
+	private String nokartu;
+
 	@SerializedName("subtotal")
 	private int subtotal;
 
@@ -49,6 +60,18 @@ public class Transaksi{
 		return username;
 	}
 
+
+	public String getMetode() {
+		return metode;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public String getNokartu() {
+		return nokartu;
+	}
 
 	public int getSubtotal() {
 		return subtotal;

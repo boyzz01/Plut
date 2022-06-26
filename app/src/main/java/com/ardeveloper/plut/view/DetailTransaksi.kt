@@ -51,7 +51,7 @@ class DetailTransaksi : BaseActivity() {
     private fun getData() {
         showLoadingDialog()
 
-        Log.d("gbl",Gblvariabel.idback)
+//        Log.d("gbl",Gblvariabel.idback)
         if (idtrans == ""){
             idtrans=Gblvariabel.idback
         }
@@ -82,7 +82,7 @@ class DetailTransaksi : BaseActivity() {
         b.tvTotalBig.text = "Rp. "+convertToCurrency(transaksi.totalHarga.toString())
         b.tvId.text = "ID Transaksi : "+transaksi.idTransaksi
         b.tvDate.text = transaksi.createdAt
-        b.tvPayment.text = "Tunai"
+        b.tvPayment.text = transaksi.metode
         b.tvOperator.text = transaksi.username
         b.tvStatus.text = "Lunas"
         b.tvSubtotal.text = "Rp. "+convertToCurrency(transaksi.subtotal.toString())
@@ -125,11 +125,18 @@ class DetailTransaksi : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        finish()
+
+        if (Gblvariabel.from.equals("1")){
+            Gblvariabel.from = ""
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+            super.onBackPressed()
+        }else{
+            super.onBackPressed()
+        }
+
     }
 
     @SuppressLint("MissingPermission")
@@ -144,29 +151,38 @@ class DetailTransaksi : BaseActivity() {
         var ds = ""
         for (i in 0 until item.size){
             val harga = item[i].totalHarga/item[i].totalProduk
-            ds+= "[L]<b>${item[i].nama}</b>\n"+
-                 "[L]<b>${item[i].totalProduk}x@${harga}</b>[R]${item[i].totalHarga}\n"+
-                 "[L] \n"
+            ds+= "[L]<b>${item[i].nama}</b>"+
+                 "[L]<font size='8'>${item[i].totalProduk}x@${harga}</font>[R]<font size='8'>${item[i].totalHarga}</font>"+
+                 "[L]"
         }
         dataCetak =   """
             [L]
-            [C]<u><font size='big'>${transaksi.idTransaksi}</font></u>
+            [C]<b><font size='12'>GALERI PLUT KUMKM</font></b>
+            [C]<b><font size='10'>Dinas Koperasi & UKM SUMUT</font></b>
             [L]
-            [C]<b><font size='14'>${transaksi.createdAt}</font></b>
+            [C]Rp.${transaksi.totalHarga}
+            [C]<u><font size='10'>${transaksi.idTransaksi}</font></u>
+            [L]
+            [L]Tanggal : [R]${transaksi.createdAt}
+            [L]Metode Pembayaran : [R]${transaksi.metode}
+            [L]Operator : [R]${transaksi.username}
+            [L]Status: [R]Lunas
             [C]================================
-            [L]<b>List Transaksi</b>
-            [C]--------------------------------
+            [L]<b>List Produk</b>
+            [C]================================
             $ds
             [C]--------------------------------
-            [L]Subtotal :[R]${transaksi.subtotal}
+            [L]Subtotal :Rp.[R]${transaksi.subtotal}
             [L]Diskon :[R]${transaksi.diskon}
             [C]--------------------------------
             [L]Total :[R]${transaksi.totalHarga}
             [L]Pembayaran :[R]${transaksi.uangDiterima}
             [L]Kembalian :[R]${transaksi.kembalian}
             [C]================================
-            [C]Operator:
-            [C]${transaksi.username}
+            [C]<font size='8'>Terima Kasih</font>
+            [C]<font size='8'>atas kunjungan anda</font>
+            [C]<font size='8'>#dukungumkm</font>
+            [C]<font size='8'>#banggabuatanindonesia</font>
             """
 
         Log.d("datacetak",dataCetak)

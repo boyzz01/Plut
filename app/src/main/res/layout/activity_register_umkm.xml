@@ -25,8 +25,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,8 +42,10 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="24dp"
-                android:visibility="gone"
-                app:srcCompat="@drawable/image_placeholder" />
+
+                android:visibility="visible"
+                app:srcCompat="@drawable/image_placeholder"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/txt_choose_image4"
@@ -57,11 +61,19 @@
                 android:fontFamily="@font/sailec_regular"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="Pilih Foto Produk"
+                android:text="Pilih Foto / Logo UMKM"
                 android:textColor="#ffffff"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:visibility="gone" />
+                tools:visibility="visible" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/divider"
+                tools:visibility="visible" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
@@ -72,7 +84,7 @@
                 android:layout_marginEnd="24dp"
                 android:background="@drawable/spn_round_bg_outline"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                tools:visibility="visible">
 
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:id="@+id/spnKota"
@@ -93,7 +105,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="20dp"
                 android:text="Detail Pemilik"
-                android:visibility="gone" />
+                tools:visibility="gone" />
 
             <com.google.android.material.textfield.TextInputLayout
 
@@ -105,7 +117,7 @@
                 android:layout_marginEnd="24dp"
                 android:hint="Nama Pemilik"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
+
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -125,8 +137,9 @@
                 android:layout_marginEnd="24dp"
                 android:hint="Alamat Pemilik"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
 
@@ -144,7 +157,7 @@
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
                 android:text="Tempat Tanggal Lahir"
-                android:visibility="gone" />
+                tools:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,8 +165,9 @@
                 android:layout_marginLeft="24dp"
                 android:layout_marginRight="24dp"
                 android:orientation="horizontal"
-                android:visibility="gone"
-                android:weightSum="2">
+
+                android:weightSum="2"
+                tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputLayout
 
@@ -209,15 +223,15 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="24dp"
                 android:hint="Jenis Kelamin"
-                android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
 
-                <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                <AutoCompleteTextView
 
                     android:id="@+id/jenisKelamin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -230,14 +244,15 @@
                 android:layout_marginEnd="24dp"
                 android:hint="No Hp"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
+
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:id="@+id/noHp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -250,15 +265,26 @@
                 android:layout_marginEnd="24dp"
                 android:hint="No KTP"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
+
                 app:hintTextColor="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:id="@+id/ktpEt"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="24dp"
+                android:layout_weight="1"
+                android:background="@color/divider" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -268,8 +294,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="24dp"
                 android:layout_weight="1"
-                android:text="Detail Usaha"
-                android:visibility="gone" />
+                android:text="Detail Usaha" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
@@ -281,8 +306,9 @@
                 android:layout_marginEnd="24dp"
                 android:hint="Nama UMKM"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etNama"
@@ -301,8 +327,9 @@
                 android:layout_marginEnd="24dp"
                 android:hint="Alamat UMKM"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="visible">
 
                 <com.google.android.material.textfield.TextInputEditText
 
@@ -321,8 +348,9 @@
                 android:layout_marginEnd="24dp"
                 android:hint="Jenis Produk"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
 
@@ -341,8 +369,9 @@
                 android:layout_marginEnd="24dp"
                 android:hint="Deskripsi Produk"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
 
@@ -361,8 +390,9 @@
                 android:layout_marginEnd="24dp"
                 android:hint="Nomor NIB"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
 
@@ -382,8 +412,9 @@
                 android:layout_marginEnd="24dp"
                 android:hint="No Sertifikat Halal"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
 
@@ -402,8 +433,9 @@
                 android:layout_marginEnd="24dp"
                 android:hint="NO. SERTIFIKASI BPOM"
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
 
@@ -422,14 +454,81 @@
                 android:layout_marginEnd="24dp"
                 android:hint="NO. PIRT "
                 android:textColorHint="@color/black"
-                android:visibility="gone"
-                app:hintTextColor="@color/black">
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:id="@+id/noPirt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:hint="Nilai Asset"
+                android:textColorHint="@color/black"
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/nilaiAsset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:hint="Omset Pertahun"
+                android:textColorHint="@color/black"
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/omset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:hint="Jumlah Karyawan"
+                android:textColorHint="@color/black"
+
+                app:hintTextColor="@color/black"
+                tools:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/karyawan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -439,7 +538,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="24dp"
                 android:orientation="vertical"
-                android:visibility="gone">
+                tools:visibility="gone">
 
                 <TextView
                     android:id="@+id/textView18"
@@ -470,6 +569,7 @@
                         <com.google.android.material.textfield.TextInputEditText
 
 
+                            android:id="@+id/merkDagang"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
@@ -489,14 +589,13 @@
                         <com.google.android.material.textfield.TextInputEditText
 
 
+                            android:id="@+id/hakCipta"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawablePadding="10dp"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:inputType="date"
-                            app:textInputLayoutFocusedRectEnabled="false" />
+                            android:focusable="auto"
+                            app:textInputLayoutFocusedRectEnabled="true" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -557,6 +656,7 @@
                         <com.google.android.material.textfield.TextInputEditText
 
 
+                            android:id="@+id/fb"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
@@ -576,16 +676,106 @@
                         <com.google.android.material.textfield.TextInputEditText
 
 
+                            android:id="@+id/ig"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawablePadding="10dp"
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:inputType="date"
-                            app:textInputLayoutFocusedRectEnabled="false" />
+                            android:focusable="auto"
+                            android:focusableInTouchMode="true"
+                            android:inputType="text"
+                            app:textInputLayoutFocusedRectEnabled="true" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:layout_marginTop="2dp"
+                    android:weightSum="2">
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:hint="TIKTOK"
+                        android:textColorHint="@color/black"
+                        app:hintTextColor="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+
+                            android:id="@+id/tiktok"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:hint="YOUTUBE"
+                        android:textColorHint="@color/black"
+                        app:hintTextColor="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+
+                            android:id="@+id/youtube"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
+                            android:focusable="auto"
+                            android:focusableInTouchMode="true"
+                            android:inputType="text"
+                            app:textInputLayoutFocusedRectEnabled="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:layout_marginTop="2dp"
+                    android:weightSum="2">
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="LAIN-LAIN"
+                        android:textColorHint="@color/black"
+                        app:hintTextColor="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+
+                            android:id="@+id/sosmedlainnya"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
+                            android:focusable="auto"
+                            android:focusableInTouchMode="true"
+                            android:inputType="text"
+                            app:textInputLayoutFocusedRectEnabled="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -594,7 +784,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
                 android:hint="WEBSITE "
                 android:textColorHint="@color/black"
@@ -602,6 +792,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
 
+                    android:id="@+id/website"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -622,12 +813,20 @@
                     android:text="ECOMMERCE		 "
                     android:visibility="visible" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:layout_marginTop="2dp"
+                    android:weightSum="2">
                 <com.google.android.material.textfield.TextInputLayout
 
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
                     android:hint="SHOPEE "
                     android:textColorHint="@color/black"
                     app:hintTextColor="@color/black">
@@ -635,6 +834,7 @@
                     <com.google.android.material.textfield.TextInputEditText
 
 
+                        android:id="@+id/shopee"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
@@ -646,6 +846,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_marginStart="8dp"
                     android:hint="TOKOPEDIA "
                     android:textColorHint="@color/black"
                     app:hintTextColor="@color/black">
@@ -653,15 +854,70 @@
                     <com.google.android.material.textfield.TextInputEditText
 
 
+                        android:id="@+id/tokopedia"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:drawablePadding="10dp"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="date"
+                        android:focusable="auto"
+                        android:focusableInTouchMode="true"
+                        android:inputType="text"
                         app:textInputLayoutFocusedRectEnabled="false" />
                 </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="visible"
+                    android:layout_marginTop="2dp"
+                    android:weightSum="2">
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:hint="LPSE"
+                        android:textColorHint="@color/black"
+                        app:hintTextColor="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+
+                            android:id="@+id/lpse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:hint="M BIZ MARKET"
+                        android:textColorHint="@color/black"
+                        app:hintTextColor="@color/black">
+
+                        <com.google.android.material.textfield.TextInputEditText
+
+
+                            android:id="@+id/mbiz"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawablePadding="10dp"
+                            android:focusable="auto"
+                            android:focusableInTouchMode="true"
+                            android:inputType="text"
+                            app:textInputLayoutFocusedRectEnabled="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
 
@@ -676,6 +932,7 @@
                     <com.google.android.material.textfield.TextInputEditText
 
 
+                        android:id="@+id/lain"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
@@ -698,9 +955,6 @@
 
         </LinearLayout>
     </ScrollView>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

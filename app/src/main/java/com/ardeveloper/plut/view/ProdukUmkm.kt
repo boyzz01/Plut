@@ -42,6 +42,7 @@ class ProdukUmkm : BaseActivity(), ProductUmkmAdapter.ItemAdapterListener {
     private lateinit var productList : MutableList<Product>
     private lateinit var mAdapter : ProductUmkmAdapter
     private lateinit var umkm: UMKM
+    var stock : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         b = ActivityProdukUmkmBinding.inflate(layoutInflater)
@@ -79,6 +80,8 @@ class ProdukUmkm : BaseActivity(), ProductUmkmAdapter.ItemAdapterListener {
 
         val intent = intent
          umkm = (intent.getSerializableExtra("umkm") as? UMKM)!!
+
+        stock = intent.getBooleanExtra("opname",false)
         val nama = umkm?.nama
 
         setSupportActionBar(b.toolbar7)
@@ -165,9 +168,17 @@ class ProdukUmkm : BaseActivity(), ProductUmkmAdapter.ItemAdapterListener {
     }
 
     override fun onItemSelected(product: Product?) {
-        val intent = Intent(this, ProductDetail::class.java)
-        intent.putExtra("produk", product!!.kodeProduk)
-        startActivity(intent)
+        if (stock){
+            val intent = Intent(this, OpnameStock::class.java)
+            intent.putExtra("produk", product!!.kodeProduk)
+            intent.putExtra("opname",true)
+            startActivity(intent)
+        }else{
+            val intent = Intent(this, ProductDetail::class.java)
+            intent.putExtra("produk", product!!.kodeProduk)
+            startActivity(intent)
+        }
+
 
     }
 

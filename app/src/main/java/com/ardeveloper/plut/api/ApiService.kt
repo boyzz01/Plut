@@ -1,8 +1,5 @@
 import com.ardeveloper.plut.data.db.*
-import com.ardeveloper.plut.data.response.ResponseCart
-import com.ardeveloper.plut.data.response.ResponseShop
-import com.ardeveloper.plut.data.response.ResponseProduk
-import com.ardeveloper.plut.data.response.ResponseTransaksi
+import com.ardeveloper.plut.data.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -27,6 +24,9 @@ interface ApiService {
 
     @GET("umkm")
     suspend fun getUmkm(): List<UMKM>
+
+    @GET("get_laporan")
+    suspend fun getLaporan(): List<LaporanUmkm>
 
     @GET("kategori")
     suspend fun getKategori(): List<Kategori>
@@ -104,16 +104,83 @@ interface ApiService {
         @Field("total") total: Int,
         @Field("kembalian") kembalian: Int,
         @Field("subtotal") subtotal: Int,
-        @Field("uang_diterima") bayar: Int): Call<ResponseBody>
+        @Field("uang_diterima") bayar: Int,
+        @Field("metode") metode:String,
+        @Field("bank")bank:String,
+        @Field("nokartu")nokartu:String): Call<ResponseBody>
 
     @Multipart
     @POST("add_umkm")
-    fun addUmkmWithFoto(
-        @Part("nama") nama: RequestBody,
+    fun tambahUmkm(
+        @Part("np") np : RequestBody,
+        @Part("ap") ap : RequestBody,
+        @Part("ttl") ttl: RequestBody,
+        @Part("jk") jk: RequestBody,
+        @Part("hp") hp: RequestBody,
+        @Part("ktp") ktp: RequestBody,
+        @Part("nu") nu: RequestBody,
+        @Part("au") au: RequestBody,
+        @Part("jp") jp: RequestBody,
+        @Part("dp") dp: RequestBody,
         @Part("nib") nib: RequestBody,
+        @Part("halal") halal: RequestBody,
+        @Part("bpom") bpom: RequestBody,
+        @Part("pirt") pirt: RequestBody,
+        @Part("merk") merk: RequestBody,
+        @Part("hak") hak: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("fb") fb: RequestBody,
+        @Part("ig") ig: RequestBody,
+        @Part("web") web: RequestBody,
+        @Part("shopee") shopee: RequestBody,
+        @Part("tokopedia") tokopedia: RequestBody,
+        @Part("lain") lain: RequestBody,
         @Part foto:MultipartBody.Part,
-        @Part("kode_kota") kode:RequestBody): Call<ResponseBody>
+        @Part("kode_kota") kode:RequestBody,
+        @Part("nilai_asset") nilai_asset:RequestBody,
+        @Part("omset") omset:RequestBody,
+        @Part("karyawan") karyawan:RequestBody,
+        @Part("tiktok") tiktok:RequestBody,
+        @Part("youtube") youtube:RequestBody,
+        @Part("sosmedlain") sosmedlain:RequestBody,
+        @Part("lpse") lpse:RequestBody,
+        @Part("mbiz") mbiz:RequestBody): Call<ResponseBody>
 
+    @Multipart
+    @POST("add_umkm")
+    fun tambahUmkm(
+        @Part("np") np : RequestBody,
+        @Part("ap") ap : RequestBody,
+        @Part("ttl") ttl: RequestBody,
+        @Part("jk") jk: RequestBody,
+        @Part("hp") hp: RequestBody,
+        @Part("ktp") ktp: RequestBody,
+        @Part("nu") nu: RequestBody,
+        @Part("au") au: RequestBody,
+        @Part("jp") jp: RequestBody,
+        @Part("dp") dp: RequestBody,
+        @Part("nib") nib: RequestBody,
+        @Part("halal") halal: RequestBody,
+        @Part("bpom") bpom: RequestBody,
+        @Part("pirt") pirt: RequestBody,
+        @Part("merk") merk: RequestBody,
+        @Part("hak") hak: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("fb") fb: RequestBody,
+        @Part("ig") ig: RequestBody,
+        @Part("web") web: RequestBody,
+        @Part("shopee") shopee: RequestBody,
+        @Part("tokopedia") tokopedia: RequestBody,
+        @Part("lain") lain: RequestBody,
+        @Part("kode_kota") kode:RequestBody,
+        @Part("nilai_asset") nilai_asset:RequestBody,
+        @Part("omset") omset:RequestBody,
+        @Part("karyawan") karyawan:RequestBody,
+        @Part("tiktok") tiktok:RequestBody,
+        @Part("youtube") youtube:RequestBody,
+        @Part("sosmedlain") sosmedlain:RequestBody,
+        @Part("lpse") lpse:RequestBody,
+        @Part("mbiz") mbiz:RequestBody): Call<ResponseBody>
 
     @GET("produk_umkm/{kode}")
     suspend fun getProduk(
@@ -131,11 +198,22 @@ interface ApiService {
         @Path("kode") kode: String
     ): Call<ResponseTransaksi>
 
+    @GET("detail_laporan/{kode}")
+    fun getLaporanDetail(
+        @Path("kode") kode: String
+    ): Call<List<TransaksiItem>>
+
     @FormUrlEncoded
     @POST("produk_shop")
     fun getProdukShop(
         @Field("id_user") id_user: String
     ): Call<ResponseShop>
+
+    @FormUrlEncoded
+    @POST("hapus_umkm")
+    fun hapusUmkm(
+        @Field("kode") kode: String
+    ): Call<ResponseBody>
 
     @GET("produk_umkm/{kode}")
     fun getProdukbyId(
@@ -144,6 +222,16 @@ interface ApiService {
 
     @GET("produk")
     suspend fun getProduk(): List<Product>
+
+
+
+    @GET("history")
+    suspend fun getHistory(): List<Transaksi>
+
+    @GET("transaksi_user/{kode}")
+    fun getTransaksiUser(
+        @Path("kode") kode: String
+    ):  Call<List<Transaksi>>
 
     @GET("detail_produk/{kode}")
     suspend fun getProdukDetail(

@@ -24,7 +24,6 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        style="@style/DarkModeHidden"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -57,7 +56,16 @@
         android:visibility="gone"
         app:layout_anchor="@+id/imageView2"
         app:layout_anchorGravity="start|top"
-        app:srcCompat="@drawable/menu" />
+        app:srcCompat="@drawable/ic_baseline_menu_24" />
+
+    <ImageView
+        android:id="@+id/imgNav"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        app:layout_anchorGravity="start|top"
+        app:srcCompat="@drawable/menu"
+        app:tint="@color/white" />
 
 
 

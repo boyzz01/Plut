@@ -1,7 +1,12 @@
 package com.ardeveloper.plut.view
 
 import ApiService
+
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -13,7 +18,9 @@ import com.ardeveloper.plut.BaseActivity
 import com.ardeveloper.plut.R
 import com.ardeveloper.plut.api.ApiClient
 import com.ardeveloper.plut.data.db.Kota
+import com.ardeveloper.plut.data.db.UMKM
 import com.ardeveloper.plut.databinding.ActivityRegisterUmkmBinding
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.infield.epcs.utils.Status
 import com.wdullaer.materialdatetimepicker.Utils
 import es.dmoral.toasty.Toasty
@@ -31,10 +38,14 @@ class RegisterUmkm : BaseActivity(){
     private lateinit var b : ActivityRegisterUmkmBinding
     private lateinit var listKota : List<Kota>
     private lateinit var adapterKota : MutableList<String>
-    var mediaPath: String? = "N/A"
+    var mediaPath: String? = ""
     var encodedImage: String? = "N/A"
-    lateinit var imageFile : File
+    var imageFile : File? = null
     var cal = Calendar.getInstance()
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -52,6 +63,7 @@ class RegisterUmkm : BaseActivity(){
        b.simpan.setOnClickListener {
             if (b.spnKota.selectedItem==null){
                 Toasty.error(this,"Mohon pilih kota terlebih dahulu",Toast.LENGTH_SHORT).show()
+                b.spnKota.requestFocus()
                 return@setOnClickListener
             }
            if (b.etNama.text!!.isEmpty()){
@@ -87,16 +99,21 @@ class RegisterUmkm : BaseActivity(){
        }
 
 
-//        b.txtChooseImage.setOnClickListener{
+        b.txtChooseImage4.setOnClickListener{
 //            val intent = Intent(this, ImageSelectActivity::class.java)
 //            intent.putExtra(ImageSelectActivity.FLAG_COMPRESS, true) //default is true
 //            intent.putExtra(ImageSelectActivity.FLAG_CAMERA, true) //default is true
 //            intent.putExtra(ImageSelectActivity.FLAG_GALLERY, true) //default is true
-//
+
 //            startActivityForResult(intent, 1213)
-//        }
 
-
+            ImagePicker.with(this)
+                .crop()	    			//Crop image(Optional), Check Customization for more option
+                .compress(1024)			//Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .saveDir(getExternalFilesDir("plut")!!)
+                .start()
+        }
 
 
 
@@ -111,11 +128,11 @@ class RegisterUmkm : BaseActivity(){
 //                mediaPath = data.getStringExtra(ImageSelectActivity.RESULT_FILE_PATH)
 //                Log.d("disini",mediaPath.toString())
 //                val selectedImage = BitmapFactory.decodeFile(mediaPath)
-//                b.imageUmkm.setImageBitmap(selectedImage)
+//                b.imageUmkm3.setImageBitmap(selectedImage)
 //                encodedImage = encodeImage(selectedImage)
 //
 //                imageFile = File(mediaPath)
-//                Log.d("imagefile",""+imageFile.name)
+//                Log.d("imagefile",""+ imageFile!!.name)
 //            }else{
 //                Log.d("disini2",""+requestCode+" "+resultCode)
 //            }
@@ -124,30 +141,120 @@ class RegisterUmkm : BaseActivity(){
 //        }
 //    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            //Image Uri will not be null for RESULT_OK
+            val uri: Uri = data?.data!!
+            imageFile = File(uri.path)
+            mediaPath = uri.path
+            Log.d("tesfoto",uri.path.toString())
+            // Use Uri object instead of File to avoid storage permissions
+            b.imageUmkm3.setImageURI(uri)
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun uploadData() {
 
         showLoadingDialog()
         val apiInterface = ApiClient.getClient(this).create(ApiService::class.java)
-        val nib = b.etNIB.text.toString().toInt()
-//
-//
-//        val requestFile: RequestBody = RequestBody.create(
-//            "image/*".toMediaTypeOrNull(),imageFile
-//        )
-//
-//        val nama: RequestBody = RequestBody.create(
-//            "text/plain".toMediaTypeOrNull(),
-//            b.etNama.text.toString()
-//        )
-//
-//        val nibText: RequestBody = RequestBody.create(
-//            "text/plain".toMediaTypeOrNull(),
-//            b.etNIB.text.toString()
-//        )
-//        val kode: RequestBody = RequestBody.create(
-//            "text/plain".toMediaTypeOrNull(),
-//            b.spnKota.selectedItem.toString()
-//        )
+
+
+        val pemilik = createPartFromString(b.pemilikEt.text.toString())
+        val alamatPemilik = createPartFromString(b.alamatPemilik.text.toString())
+        val tempatL = b.tempatLahir.text.toString()
+        val tglLahir = b.tglLahir.text.toString()
+        val ttl = createPartFromString("$tempatL, $tglLahir")
+        val jk = createPartFromString(b.jenisKelamin.text.toString())
+        val nohp = createPartFromString(b.noHp.text.toString())
+        val noktp = createPartFromString(b.ktpEt.text.toString())
+
+        val nama = createPartFromString(b.etNama.text.toString())
+        val alamatUmkm = createPartFromString(b.alamatUmkm.text.toString())
+        val jenisProduk = createPartFromString(b.jenisProduk.text.toString())
+        val deskripsiProduk = createPartFromString(b.deskripsiProduk.text.toString())
+        val nib = createPartFromString(b.etNIB.text.toString())
+        val noHalal = createPartFromString(b.noHalal.text.toString())
+        val noBpom = createPartFromString(b.noBpom.text.toString())
+        val noPirt = createPartFromString(b.noPirt.text.toString())
+        val merekDagang = createPartFromString(b.merkDagang.text.toString())
+        val hakCipta = createPartFromString(b.hakCipta.text.toString())
+        val email = createPartFromString(b.email.text.toString())
+        val fb = createPartFromString(b.fb.text.toString())
+        val instagram = createPartFromString(b.ig.text.toString())
+        val landingPage = createPartFromString(b.website.text.toString())
+        val shopee = createPartFromString(b.shopee.text.toString())
+        val tokopedia = createPartFromString(b.tokopedia.text.toString())
+        val lain = createPartFromString(b.lain.text.toString())
+
+
+        val nilai_asset = createPartFromString(b.nilaiAsset.text.toString())
+        val omset = createPartFromString(b.omset.text.toString())
+        val karyawan = createPartFromString(b.karyawan.text.toString())
+        val tiktok = createPartFromString(b.tiktok.text.toString())
+        val youtube = createPartFromString(b.youtube.text.toString())
+        val sosmedlain = createPartFromString(b.sosmedlainnya.text.toString())
+        val lpse = createPartFromString(b.lpse.text.toString())
+        val mbiz = createPartFromString(b.mbiz.text.toString())
+
+
+        val kode = createPartFromString(b.spnKota.selectedItem.toString())
+        if (imageFile!=null){
+            val foto = createPartFromFile(mediaPath,"foto")
+            apiInterface.tambahUmkm(
+                pemilik,alamatPemilik,ttl,jk,nohp,noktp,nama,alamatUmkm,jenisProduk,
+                deskripsiProduk,nib,noHalal,noBpom,noPirt,merekDagang,hakCipta,email,
+                fb,instagram,landingPage,shopee,tokopedia,lain, foto!!,kode, nilai_asset, omset, karyawan, tiktok, youtube, sosmedlain, lpse, mbiz
+            ).enqueue(object :  Callback<ResponseBody>{
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful){
+                        Toasty.success(this@RegisterUmkm,"UMKM Berhasil Ditambahkan").show()
+                        resetAll()
+                    }else{
+                        Toasty.error(this@RegisterUmkm,"Error : "+response.code()+" : "+response.body()).show()
+                    }
+                    hideLoadingDialog()
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Toasty.error(this@RegisterUmkm,"Error : "+t.message).show()
+                    hideLoadingDialog()
+                }
+
+            } )
+        }else{
+            apiInterface.tambahUmkm(
+                pemilik,alamatPemilik,ttl,jk,nohp,noktp,nama,alamatUmkm,jenisProduk,
+                deskripsiProduk,nib,noHalal,noBpom,noPirt,merekDagang,hakCipta,email,
+                fb,instagram,landingPage,shopee,tokopedia,lain,kode, nilai_asset, omset, karyawan, tiktok, youtube, sosmedlain, lpse, mbiz
+            ).enqueue(object :  Callback<ResponseBody>{
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    if (response.isSuccessful){
+                        Toasty.success(this@RegisterUmkm,"UMKM Berhasil Ditambahkan").show()
+                        resetAll()
+                    }else{
+                        Toasty.error(this@RegisterUmkm,"Error : "+response.code()+" : "+response.body()).show()
+                    }
+                    hideLoadingDialog()
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Toasty.error(this@RegisterUmkm,"Error : "+t.message).show()
+                    hideLoadingDialog()
+                }
+
+            } )
+        }
 //
 //        val foto = MultipartBody.Part.createFormData("foto", imageFile.name, requestFile)
 //
@@ -167,28 +274,28 @@ class RegisterUmkm : BaseActivity(){
 //
 //            })
 
-        apiInterface.addUmkm(b.etNama.text.toString(),nib,b.spnKota.selectedItem.toString())
-            .enqueue(object : Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                  //  val response_data = response.body()?.string();
-                    if (response.isSuccessful){
-                        Toasty.success(this@RegisterUmkm,"UMKM Berhasil Ditambahkan").show()
-                        resetAll()
-                    }else{
-                        Toasty.error(this@RegisterUmkm,"Error : "+response.code()).show()
-                    }
-                    hideLoadingDialog()
-                }
-
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    Toasty.error(this@RegisterUmkm,"Error : "+t.message).show()
-                    hideLoadingDialog()
-                }
-
-            })
+//        apiInterface.addUmkm(b.etNama.text.toString(),nib,b.spnKota.selectedItem.toString())
+//            .enqueue(object : Callback<ResponseBody> {
+//                override fun onResponse(
+//                    call: Call<ResponseBody>,
+//                    response: Response<ResponseBody>
+//                ) {
+//                  //  val response_data = response.body()?.string();
+//                    if (response.isSuccessful){
+//                        Toasty.success(this@RegisterUmkm,"UMKM Berhasil Ditambahkan").show()
+//                        resetAll()
+//                    }else{
+//                        Toasty.error(this@RegisterUmkm,"Error : "+response.code()).show()
+//                    }
+//                    hideLoadingDialog()
+//                }
+//
+//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                    Toasty.error(this@RegisterUmkm,"Error : "+t.message).show()
+//                    hideLoadingDialog()
+//                }
+//
+//            })
 //        viewModel.addUmkm(b.etNama.text.toString(),nib,b.spnKota.selectedItem.toString()).observe(this, Observer {
 //            it?.let { resource ->
 //                when (resource.status) {
@@ -209,11 +316,11 @@ class RegisterUmkm : BaseActivity(){
     }
 
     private fun resetAll() {
-        b.spnKota.setSelection(0)
-        b.etNIB.setText("")
-        b.etNIB.clearFocus()
-        b.etNama.setText("")
-
+//        b.spnKota.setSelection(0)
+//        b.etNIB.setText("")
+//        b.etNIB.clearFocus()
+//        b.etNama.setText("")
+        finish()
     }
 
 
@@ -226,6 +333,9 @@ class RegisterUmkm : BaseActivity(){
         b.spnKota.setPositiveButton("Ok")
         b.spnKota.adapter = adapter
 
+        val ket = arrayOf("Laki-Laki","Perempuan")
+        val adapterJk = ArrayAdapter(this, R.layout.dropdown_item, ket)
+        b.jenisKelamin.setAdapter(adapterJk)
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
@@ -257,6 +367,7 @@ class RegisterUmkm : BaseActivity(){
 
     }
     private fun getData() {
+        showLoadingDialog()
         viewModel.getKota().observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
@@ -272,10 +383,11 @@ class RegisterUmkm : BaseActivity(){
                         b.spnKota.adapter = adapter
                         adapter.notifyDataSetChanged()
 
-
+                        hideLoadingDialog()
                     }
                     Status.ERROR -> {
                         Log.d("tesDownload","Error"+it.message)
+                        hideLoadingDialog()
 
                     }
                     Status.LOADING -> {

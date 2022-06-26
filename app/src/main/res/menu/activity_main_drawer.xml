@@ -3,36 +3,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
+<!--    <group android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/nav_camera"-->
+<!--            android:icon="@drawable/ic_menu_camera"-->
+<!--            android:title="Import" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_gallery"-->
+<!--            android:icon="@drawable/ic_menu_gallery"-->
+<!--            android:title="Gallery" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_slideshow"-->
+<!--            android:icon="@drawable/ic_menu_slideshow"-->
+<!--            android:title="Slideshow" />-->
+<!--        <item-->
+<!--            android:id="@+id/nav_manage"-->
+<!--            android:icon="@drawable/ic_menu_manage"-->
+<!--            android:title="Tools" />-->
+<!--    </group>-->
 
-    <item android:title="Only Toggle Theme would work">
+<!--    <item android:title="Only Toggle Theme would work">-->
+<!--        <menu>-->
+<!--            <item-->
+<!--                android:id="@+id/nav_share"-->
+<!--                android:icon="@drawable/ic_menu_share"-->
+<!--                android:title="Share" />-->
+<!--            <item-->
+<!--                android:id="@+id/nav_dark_mode"-->
+<!--                android:icon="@android:drawable/ic_menu_day"-->
+<!--                android:title="Toggle Theme" />-->
+<!--        </menu>-->
+<!--    </item>-->
+
+    <item
+        android:id="@+id/pos"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Point Of Sales" />
+    <item
+        android:id="@+id/register"
+        android:icon="@drawable/ic_baseline_add_business_24"
+        android:title="Register UMKM" />
+    <item
+        android:id="@+id/inventory"
+        android:icon="@drawable/ic_baseline_all_inbox_24"
+        android:title="Inventory" />
+    <item
+        android:id="@+id/report"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:title="Report" />
+    <item
+        android:id="@+id/shift"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="Shift" />
+    <item android:title="Lainnya">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/setting"
+                android:icon="@drawable/ic_baseline_settings_24"
+                android:title="Pengaturan" />
             <item
-                android:id="@+id/nav_dark_mode"
-                android:icon="@android:drawable/ic_menu_day"
-                android:title="Toggle Theme" />
+                android:id="@+id/keluar"
+                android:icon="@drawable/ic_baseline_login_24"
+                android:title="Keluar" />
         </menu>
     </item>
-
 </menu>

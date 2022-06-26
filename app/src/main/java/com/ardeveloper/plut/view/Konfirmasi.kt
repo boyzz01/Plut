@@ -7,6 +7,11 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -15,20 +20,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ardeveloper.plut.BaseActivity
 import com.ardeveloper.plut.R
 import com.ardeveloper.plut.adapter.ConfirmationAdapter
-import com.ardeveloper.plut.adapter.KeranjangAdapter
 import com.ardeveloper.plut.api.ApiClient
 import com.ardeveloper.plut.data.response.ResponseCart
 import com.ardeveloper.plut.data.response.ResponseProduk
 import com.ardeveloper.plut.databinding.ActivityKonfirmasiBinding
 import com.ardeveloper.plut.preferences.SharedPrefs
 import com.ardeveloper.plut.utils.Helper
-import com.ardeveloper.plut.utils.Helper.convertToCurrency
 import es.dmoral.toasty.Toasty
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class Konfirmasi : BaseActivity() {
 
@@ -42,6 +46,13 @@ class Konfirmasi : BaseActivity() {
     var bayar = 0
     var total = 0
     var diskon = 0
+    var bank = ""
+    var nokartu = ""
+    var pakaiBank :Boolean= false
+    var metode=""
+    //0 = Rp 1=%
+
+    var typediskon = 0
 
     private lateinit var b : ActivityKonfirmasiBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,6 +129,76 @@ class Konfirmasi : BaseActivity() {
         b.rvList.itemAnimator = DefaultItemAnimator()
         b.rvList.adapter = cartAdapter
 
+        val ket = arrayOf("BNI","BCA","BRI","BTN","MANDIRI","LAINNYA")
+        val adapter = ArrayAdapter(this, R.layout.dropdown_item, ket)
+        b.spnBank.setAdapter(adapter)
+
+        b.rbTunai.isChecked = true
+
+        b.rbRupiah.isChecked = true
+        typediskon = 0
+        metode ="Tunai"
+        hideBank()
+
+        b.rgDiskon.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, i ->
+            run {
+                when (i) {
+                    R.id.rb_rupiah -> {
+                        // do something when radio button 1 is selected
+                       typediskon = 0
+                        b.etDiscount.hint = "Rp"
+
+                        if (b.etDiscount.text.toString()==""){
+                            checkDiskon(0)
+                        }else{
+                            checkDiskon(b.etDiscount.text.toString().toInt())
+                        }
+
+                    }
+                    R.id.rb_persen -> {
+                      typediskon = 1
+                        b.etDiscount.hint = "%"
+                        if (b.etDiscount.text.toString()==""){
+                            checkDiskon(0)
+                        }else{
+                            checkDiskon(b.etDiscount.text.toString().toInt())
+                        }
+                    }
+
+                    // add more cases here to handle other buttons in the your RadioGroup
+                }
+            }
+        })
+        b.rgPayment.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId -> // checkedId is the RadioButton selected
+
+            val radio:RadioButton = group.findViewById(checkedId)
+            metode = radio.text.toString()
+            Log.d("tes",metode)
+
+            run {
+                when (checkedId) {
+                    R.id.rb_tunai -> {
+                        // do something when radio button 1 is selected
+                        hideBank()
+                    }
+                    R.id.rb_nontunai -> {
+                        showBank()
+                    }
+                    R.id.rb_piutang -> {
+                        showBank()
+                    }
+                    R.id.ewallet -> {
+                        hideBank()
+                    }
+                    R.id.qris -> {
+                        hideBank()
+                    }
+                    // add more cases here to handle other buttons in the your RadioGroup
+                }
+            }
+
+
+        })
 
         b.bBayar.setOnClickListener {
 //            Log.d("data1",""+bayar)
@@ -125,6 +206,21 @@ class Konfirmasi : BaseActivity() {
 //            Log.d("data3",""+subtotal)
 //            Log.d("data4",""+kembalian)
 
+            if (pakaiBank){
+                nokartu = b.etNomorKartu.text.toString()
+                bank = b.spnBank.text.toString()
+                if (bank == ""){
+                    Toasty.error(this,"Mohon Pilih Bank").show()
+                    return@setOnClickListener
+                }
+                if (nokartu == ""){
+                    Toasty.error(this,"No Kartu Tidak Boleh Kosong").show()
+                    return@setOnClickListener
+                }
+
+            }
+
+            Log.d("data",metode+" "+bank+" "+nokartu)
             if (diskon>subtotal){
                 Toasty.error(this,"Diskon tidak boleh lebih dari subtotal").show()
                 return@setOnClickListener
@@ -210,32 +306,9 @@ class Konfirmasi : BaseActivity() {
                 Handler().postDelayed({
                     if(b.etDiscount.hasFocus()) {
                 if (p0.toString().isNotEmpty()) {
-                    diskon = (p0.toString().toInt())
-                    b.tvDiscount.text = "Rp." + convertToCurrency(p0.toString())
-                    total = subtotal - diskon
-                    b.tvTotal.text = "Rp." + Helper.convertToCurrency(total.toString())
 
-                    kembalian = (bayar) - (total)
+                    checkDiskon(p0.toString().toInt())
 
-                    if (kembalian >= 0) {
-                        b.tvKembalian.text =
-                            "Kembali : Rp." + convertToCurrency(kembalian.toString())
-                        b.tvKembalian.setTextColor(
-                            ContextCompat.getColor(
-                                this@Konfirmasi,
-                                R.color.colorAccent
-                            )
-                        )
-                    } else {
-                        b.tvKembalian.text =
-                            "Kekurangan pembayaran : Rp." + convertToCurrency(kembalian.toString())
-                        b.tvKembalian.setTextColor(
-                            ContextCompat.getColor(
-                                this@Konfirmasi,
-                                R.color.vermillion
-                            )
-                        )
-                    }
                 }else{
                     b.etDiscount.setText("0")
                 }
@@ -252,9 +325,86 @@ class Konfirmasi : BaseActivity() {
 
     }
 
+    private fun checkDiskon(jumlah: Int) {
+
+
+        if (typediskon==0){
+            diskon = jumlah
+            b.tvDiscount.text = "Rp." + convertToCurrency(jumlah.toString())
+            total = subtotal - diskon
+            b.tvTotal.text = "Rp." + Helper.convertToCurrency(total.toString())
+
+            kembalian = (bayar) - (total)
+
+            if (kembalian >= 0) {
+                b.tvKembalian.text =
+                    "Kembali : Rp." + convertToCurrency(kembalian.toString())
+                b.tvKembalian.setTextColor(
+                    ContextCompat.getColor(
+                        this@Konfirmasi,
+                        R.color.colorAccent
+                    )
+                )
+            } else {
+                b.tvKembalian.text =
+                    "Kekurangan pembayaran : Rp." + convertToCurrency(kembalian.toString())
+                b.tvKembalian.setTextColor(
+                    ContextCompat.getColor(
+                        this@Konfirmasi,
+                        R.color.vermillion
+                    )
+                )
+            }
+        }else{
+            val temp = subtotal*jumlah/100
+            diskon = temp
+            b.tvDiscount.text = "Rp." + convertToCurrency(diskon.toString())
+            total = subtotal - diskon
+            b.tvTotal.text = "Rp." + Helper.convertToCurrency(total.toString())
+
+            kembalian = (bayar) - (total)
+
+            if (kembalian >= 0) {
+                b.tvKembalian.text =
+                    "Kembali : Rp." + convertToCurrency(kembalian.toString())
+                b.tvKembalian.setTextColor(
+                    ContextCompat.getColor(
+                        this@Konfirmasi,
+                        R.color.colorAccent
+                    )
+                )
+            } else {
+                b.tvKembalian.text =
+                    "Kekurangan pembayaran : Rp." + convertToCurrency(kembalian.toString())
+                b.tvKembalian.setTextColor(
+                    ContextCompat.getColor(
+                        this@Konfirmasi,
+                        R.color.vermillion
+                    )
+                )
+            }
+        }
+
+    }
+
+    private fun showBank() {
+        b.llNomorKartu.visibility = View.VISIBLE
+        b.bankDebit.visibility = View.VISIBLE
+        pakaiBank = true
+    }
+
+    private fun hideBank(){
+        b.llNomorKartu.visibility = View.GONE
+        b.bankDebit.visibility = View.GONE
+        b.etNomorKartu.setText("")
+        bank =""
+        nokartu=""
+        pakaiBank = false
+    }
+
     private fun uploadData() {
         showLoadingDialog()
-        apiInterface.addTransaksi(total,userId.toInt(),diskon,responseCart!!.totalItem.toString().toInt(),kembalian,subtotal,bayar)
+        apiInterface.addTransaksi(total,userId.toInt(),diskon,responseCart!!.totalItem.toString().toInt(),kembalian,subtotal,bayar,metode, bank, nokartu)
             .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
                     call: Call<ResponseBody>,
@@ -273,6 +423,7 @@ class Konfirmasi : BaseActivity() {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                             intent.putExtra("idtrans",idtrans)
                             startActivity(intent)
+                            finish()
                         }else{
                             Toasty.error(this@Konfirmasi,"Error :"+idtrans)
                         }

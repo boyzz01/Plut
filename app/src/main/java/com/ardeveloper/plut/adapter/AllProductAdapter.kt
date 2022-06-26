@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ardeveloper.plut.R
 import com.ardeveloper.plut.data.db.Product
 import com.ardeveloper.plut.data.service.AllDbService
+import com.ardeveloper.plut.utils.Helper
 import com.ardeveloper.plut.view.ProductDetail
 import com.bumptech.glide.Glide
 import es.dmoral.toasty.Toasty
@@ -44,8 +45,8 @@ class AllProductAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val product = ListFiltered[position]
         holder.nameTv.text = product.nama
-        holder.priceTv.text = "Rp. "+product.harga
-        holder.stockTv.text = "Stok : "+product.stock.toString()
+        holder.priceTv.text = "Rp. "+Helper.convertToCurrency(product.harga)
+        holder.stockTv.text = "Stok : "+Helper.convertToCurrency(product.stock.toString())
 
         holder.btnAddToCart.setOnClickListener {
             val intent = Intent(context, ProductDetail::class.java)

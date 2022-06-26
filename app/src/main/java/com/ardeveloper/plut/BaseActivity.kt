@@ -30,6 +30,7 @@ import com.ardeveloper.plut.utils.bt.BluetoothUtil
 import com.ardeveloper.plut.utils.bt.async.AsyncBluetoothEscPosPrint
 import com.ardeveloper.plut.utils.bt.async.AsyncEscPosPrint
 import com.ardeveloper.plut.utils.bt.async.AsyncEscPosPrinter
+import com.ardeveloper.plut.utils.bt.btconnect
 import com.dantsu.escposprinter.connection.DeviceConnection
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothConnection
 import com.dantsu.escposprinter.connection.bluetooth.BluetoothPrintersConnections
@@ -42,6 +43,9 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.obsez.android.lib.filechooser.ChooserDialog
 import es.dmoral.toasty.Toasty
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.DecimalFormat
@@ -264,7 +268,7 @@ open class BaseActivity : AppCompatActivity() {
     }
     @SuppressLint("MissingPermission")
     open fun browseBluetoothDevice(pilihan: Int) {
-        val bluetoothDevicesList = BluetoothPrintersConnections().list
+        val bluetoothDevicesList = btconnect().list
         if (bluetoothDevicesList != null) {
             val items = arrayOfNulls<String>(bluetoothDevicesList.size + 1)
             items[0] = "Default printer"
@@ -298,5 +302,18 @@ open class BaseActivity : AppCompatActivity() {
         return printer.addTextToPrint(
           dataCetak.trimIndent()
         )
+    }
+
+    fun createPartFromString(text: String): RequestBody {
+        return RequestBody.create("text/plain".toMediaTypeOrNull(), text)
+    }
+
+    fun createPartFromFile(path: String?, key: String): MultipartBody.Part? {
+        if (path == null) {
+            return null
+        }
+        val file = File(path)
+        val request = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+        return MultipartBody.Part.createFormData(key, file.name, request)
     }
 }

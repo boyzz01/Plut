@@ -8,7 +8,7 @@
     android:clickable="true"
     android:elevation="8dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgUmkm"
         android:layout_width="55dp"
         android:layout_height="55dp"
@@ -64,6 +64,19 @@
 
     <ImageView
         android:id="@+id/retur"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="50dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_delete_24"
+        app:tint="#E91E63" />
+
+    <ImageView
+        android:id="@+id/retur3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

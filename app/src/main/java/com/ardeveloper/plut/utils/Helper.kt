@@ -152,18 +152,7 @@ object Helper {
         return json
     }
 
-    fun createPartFromString(text: String): RequestBody {
-        return RequestBody.create("text/plain".toMediaTypeOrNull(), text)
-    }
 
-    fun createPartFromFile(path: String?, key: String): MultipartBody.Part? {
-        if (path == null) {
-            return null
-        }
-        val file = File(path)
-        val request = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-        return MultipartBody.Part.createFormData(key, file.name, request)
-    }
 
     fun shareBitmapToApps(context: Context, pathUri: Uri) {
         val i = Intent(Intent.ACTION_SEND)

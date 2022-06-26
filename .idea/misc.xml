@@ -4,10 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable-v24/circle_gray.xml" value="0.262" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable-v24/ic_drawer.xml" value="0.2255" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable-v24/selector_drawer.xml" value="0.2255" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable-v24/selector_primary_light_foreground.xml" value="0.262" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable/edit_text_round_bg_outline.xml" value="0.2595" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable/gradient_bg.xml" value="0.2595" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable/home_gradient_maths.xml" value="0.256" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable/home_gradient_maths2.xml" value="0.208" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable/ic_account_off.xml" value="0.262" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable/ic_baseline_add_business_24.xml" value="0.247" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/drawable/ic_baseline_calendar_month_24.xml" value="0.1485" />
@@ -49,23 +52,33 @@
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_akun.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_all_produk.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_all_transaksi.xml" value="0.24270833333333333" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_detail_laporan.xml" value="0.20925925925925926" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_detail_transaksi.xml" value="0.264" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_input_barang.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_inventory.xml" value="0.264" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_kasir.xml" value="0.4" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_konfirmasi.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_laporan.xml" value="0.25677083333333334" />
-        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_login.xml" value="0.24270833333333333" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_main2.xml" value="0.2518518518518518" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_main4.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_opname_barang.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_opname_stock.xml" value="0.2528205128205128" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_product_detail.xml" value="0.24686192468619247" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_produk_umkm.xml" value="0.25677083333333334" />
-        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_register_umkm.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_register_umkm.xml" value="0.2" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_register_umkm2.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_report.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_retur_barang.xml" value="0.2463768115942029" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_sales_fast_moving.xml" value="0.24270833333333333" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_sales_report.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_scanner.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_setting.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_shift.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_splash.xml" value="0.19701086956521738" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_stock_opname.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_stock_report.xml" value="0.24270833333333333" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_sukses.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_transaksi.xml" value="0.2" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/activity_umkm.xml" value="0.2463768115942029" />
@@ -76,15 +89,18 @@
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/dropdown_item.xml" value="0.2463768115942029" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/item_list_sell_transaction.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/item_list_transaction.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/laporan_row_item.xml" value="0.20925925925925926" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/layout_progress_dialog.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/menu_umkm.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/nav_header_main.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/pos_product_item.xml" value="0.264" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/pos_product_item2.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/produk_row_item.xml" value="0.4" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/transaksi_row_item.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/layout/umkm_row_item.xml" value="0.264" />
-        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/menu/activity_main_drawer.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/menu/activity_main_drawer.xml" value="0.4" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/menu/master_bottom_navigation.xml" value="0.25677083333333334" />
+        <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/menu/menu_export.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/menu/menu_umkm.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/menu/menu_umkm2.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Thinkpad/AndroidStudioProjects/Plut/app/src/main/res/menu/navigation.xml" value="0.25677083333333334" />

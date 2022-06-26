@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ardeveloper.plut">
+    package="com.ardeveloper.plut" >
 
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,12 +19,39 @@
     <application
         android:name=".MainApp"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/inventory"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@drawable/inventory"
         android:supportsRtl="true"
-        android:theme="@style/main">
+        android:theme="@style/main" >
+        <activity
+            android:name=".view.SalesFastMoving"
+            android:exported="false" />
+        <activity
+            android:name=".view.OpnameStock"
+            android:exported="false" />
+        <activity
+            android:name=".view.Inventory"
+            android:exported="false" />
+        <activity
+            android:name=".view.Setting"
+            android:exported="false" />
+        <activity
+            android:name=".view.StockReport"
+            android:exported="false" />
+        <activity
+            android:name=".view.SalesReport"
+            android:exported="false" />
+        <activity
+            android:name=".view.Shift"
+            android:exported="false" />
+        <activity
+            android:name=".view.Report"
+            android:exported="false" />
+        <activity
+            android:name=".view.DetailLaporan"
+            android:exported="false" />
         <activity
             android:name=".view.DetailTransaksi"
             android:exported="false" />
@@ -53,7 +80,7 @@
             android:name=".view.ProdukUmkm"
             android:exported="false" />
         <activity
-            android:name=".view.Transaksi"
+            android:name=".view.TransaksiView"
             android:exported="false" />
         <activity
             android:name=".view.ScannerActivity"
@@ -71,7 +98,18 @@
             android:exported="false" />
         <activity
             android:name=".view.Umkm"
-            android:exported="false">
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.UmkmStock"
+            android:exported="false" >
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -87,13 +125,17 @@
             android:name=".view.Kasir"
             android:exported="false" />
         <activity
+            android:name=".view.StockOpname"
+            android:exported="false" />
+        <activity
             android:name=".view.Login"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Plut" />
         <activity
             android:name=".view.Splash"
             android:exported="true"
-            android:theme="@style/Theme.Plut">
+            android:theme="@style/Theme.Plut" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -108,7 +150,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
