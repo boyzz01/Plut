@@ -20,9 +20,9 @@
       app:title="Transaksi Penjualan"
       app:titleTextColor="@color/white" />
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rvList"
-      android:layout_width="match_parent"
+  <WebView
+      android:id="@+id/wv"
+      android:layout_width="0dp"
       android:layout_height="0dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

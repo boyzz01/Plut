@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "623493710867",
+    "project_id": "plut-91987",
+    "storage_bucket": "plut-91987.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623493710867:android:3bc2b024319ae3ee652be6",
+        "android_client_info": {
+          "package_name": "com.ardeveloper.plut"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623493710867-moopd8lsuahpk6lec5h1q0guarv0rrnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtIbO3kpb8xc4jOlj6hm1QPxE9obrTnNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623493710867-moopd8lsuahpk6lec5h1q0guarv0rrnq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

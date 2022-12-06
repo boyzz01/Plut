@@ -18,6 +18,14 @@ interface ApiService {
         @Field("username") username: String,
         @Field("password") password:String): Call<ResponseBody>
 
+    @GET("produk")
+    fun getListProduk():Call<List<Product>>
+
+    @GET("fast")
+    fun fastReport():Call<List<Product>>
+
+    @GET("slow")
+    fun slowReport():Call<List<Product>>
 
     @GET("kota")
     suspend fun getKota(): List<Kota>
